@@ -1,0 +1,17 @@
+<configuration scan="true">
+    <!-- Console appender -->
+    <include resource="appenders/stdout-appender.xml"/>
+
+    <!-- File appender -->
+    <include resource="appenders/file-appender.xml"/>
+
+    <!-- Database appender -->
+    <include resource="appenders/db-appender.xml"/>
+
+    <!-- Root level -->
+    <root level="ALL">  <!-- Overridden by com.sii' filters -->
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="DB"/>
+    </root>
+</configuration>

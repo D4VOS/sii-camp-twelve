@@ -1,0 +1,30 @@
+<included>
+    <!-- Timestamps setup -->
+    <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+
+    <!-- Directory vars setup -->
+    <property name="DEV_HOME" value="${user.dir}/logs"/>
+    <property name="FILENAME" value="logs"/>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${DEV_HOME}/${FILENAME}_${bySecond}.log</file>
+        <append>true</append>
+        <cleanHistoryOnStart>true</cleanHistoryOnStart>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${DEV_HOME}/${FILENAME}.%d{yyyy-MM-dd-HH}.zip</fileNamePattern>
+            <maxHistory>12</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>
+                %-19(%d{yyyy-MM-dd HH:mm:ss}) %-7([%level]) %-26([%thread]) %-30(%class{0} \(%method:%line\)) - %msg %X{driverId} %n
+            </pattern>
+        </encoder>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+</included>

@@ -1,0 +1,14 @@
+<included>
+    <property resource="database.properties"/>
+
+    <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+        <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+            <driverClass>${database.driverClass}</driverClass>
+            <url>${database.url}</url>
+        </connectionSource>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+    </appender>
+</included>
