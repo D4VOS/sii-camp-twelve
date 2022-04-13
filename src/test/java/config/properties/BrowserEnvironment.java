@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static helpers.BrowserFactory.getDriverByName;
+import static helpers.drivers.DriverFactory.getDriverByName;
 
 public class BrowserEnvironment {
     private static final Logger logger = LoggerFactory.getLogger(BrowserEnvironment.class);
@@ -24,7 +24,7 @@ public class BrowserEnvironment {
     public WebDriver getDriver() {
         this.driver = getDriverByName(config.getName());
         logger.info("Initialized " + config.getName() + " browser driver.");
-        
+
         driver.get(System.getProperty("app.url"));
         return driver;
     }
