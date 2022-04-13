@@ -9,42 +9,14 @@ activeEnvironment: prod
 environments:
     test:
         app:
-            url: https://seleniumui.moderntester.pl/form.php
+            url: http://146.59.32.4/
         user:
-            firstName: Adam
-            lastName: Nowak
-            experience: 1
-            age: 17
-            gender: male
             email: adamnowak@poczta.pl
-            professions: [ Manual tester ]
-            commands: [ Browser Commands, Switch Commands, Wait Commands ]
-            filePath: data/some-file.txt
-            continent: Europe
-            additionalInfo: some additional info
-        db:
-            user: test_db_user
-            password: 123456
-            host: 123.123.222.123
-            port: 2222
+            password: haslo123
     prod:
         app:
-            url: https://seleniumui.moderntester.pl/form.php
+            url: http://146.59.32.4/
         user:
-            firstName: Adam
-            lastName: Kowalski
-            experience: 12
-            age: 55
-            gender: male
-            email: adam222@poczta.pl
-            professions: [ Automation tester ]
-            commands: [ Browser Commands, Wait Commands ]
-            filePath: data/some-file.txt
-            continent: Europe
-            additionalInfo: some different additional info
-        db:
-            user: prod_db_user
-            password: 22125
-            host: 222.123.222.123
-            port: 2222
+            email: kamilpolak@poczta.pl
+            password: trudnehaslo1
 

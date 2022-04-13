@@ -10,8 +10,8 @@ import java.util.List;
 public class User {
     private String firstName;
     private String lastName;
-    private int experience;
-    private int age;
+    private Integer experience;
+    private Integer age;
     private String gender;
     private String email;
     private List<String> professions;

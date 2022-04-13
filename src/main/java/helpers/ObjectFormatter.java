@@ -17,6 +17,10 @@ public class ObjectFormatter {
                 String fieldName = field.getName();
                 Object fieldValue = field.get(object);
 
+                if (fieldValue == null) {
+                    continue;
+                }
+
                 if (isCustomModel(fieldValue)) {
                     convertToPropertiesForm(field.get(object), fieldName);
                 } else {

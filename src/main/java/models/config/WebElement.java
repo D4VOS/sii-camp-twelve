@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class WebElement {
-    private int polling;
-    private int timeOut;
+    private Integer polling;
+    private Integer timeOut;
 }

@@ -9,5 +9,5 @@ public class DataBase {
     private String user;
     private String password;
     private String host;
-    private int port;
+    private Integer port;
 }
