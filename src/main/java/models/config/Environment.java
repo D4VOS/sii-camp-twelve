@@ -8,5 +8,4 @@ import lombok.NoArgsConstructor;
 public class Environment {
     private App app;
     private User user;
-    private DataBase db;
 }

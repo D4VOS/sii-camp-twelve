@@ -11,12 +11,20 @@ environments:
         app:
             url: http://146.59.32.4/
         user:
+            socialTitle: Mr
+            firstName: Adam
+            lastName: Nowak
             email: adamnowak@poczta.pl
             password: haslo123
+            birthDate: 03/15/2000
     prod:
         app:
             url: http://146.59.32.4/
         user:
-            email: kamilpolak@poczta.pl
+            socialTitle: Mrs
+            firstName: Karolina
+            lastName: Nowak
+            email: kaarolan@poczta.pl
             password: trudnehaslo1
+            birthDate: 07/10/1999
 

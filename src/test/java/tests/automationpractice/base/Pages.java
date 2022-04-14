@@ -12,10 +12,11 @@ public class Pages extends TestBase {
 
     public <T extends PageBase> T at(Class<T> pageType) {
         try {
-            logger.info("Trying to create Page of " + pageType.getName() + " type");
-            return pageType.getDeclaredConstructor(WebDriver.class).newInstance(driver);
-        } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            logger.error(e.getLocalizedMessage());
+            logger.info("Trying to create Page of " + pageType.getSimpleName() + " type");
+            return pageType.getConstructor(WebDriver.class).newInstance(driver);
+        } catch (InstantiationException | NoSuchMethodException | InvocationTargetException |
+                 IllegalAccessException e) {
+            logger.error(e.getMessage());
         }
         return null;
     }
