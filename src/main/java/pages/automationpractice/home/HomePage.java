@@ -5,9 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.automationpractice.AutomationPracticePageBase;
 import pages.automationpractice.products.ProductListPage;
-import pages.automationpractice.products.ProductTilePage;
-
-import java.util.List;
 
 public class HomePage extends AutomationPracticePageBase {
 
@@ -18,7 +15,7 @@ public class HomePage extends AutomationPracticePageBase {
         super(driver);
     }
 
-    public List<ProductTilePage> getProducts() {
-        return new ProductListPage(driver, productListGrid).getProducts();
+    public ProductListPage getProducts() {
+        return new ProductListPage(driver, productListGrid);
     }
 }

@@ -13,27 +13,27 @@ import java.util.stream.Collectors;
 
 public class ProductListPage extends AutomationPracticePageBase {
 
-    @FindBy(css = "article")
-    private List<WebElement> productList;
+    @FindBy(css = ".product")
+    private List<WebElement> products;
 
     public ProductListPage(WebDriver driver, WebElement element) {
         super(driver);
         PageFactory.initElements(new DefaultElementLocatorFactory(element), this);
     }
 
-    public List<String> getProductNames() {
-        return getProducts().stream()
+    public List<String> getNames() {
+        return getAll().stream()
                 .map(ProductTilePage::getName)
                 .collect(Collectors.toList());
     }
 
-    public String getRandomProductName() {
-        int random = new Random().nextInt(productList.size());
-        return getProducts().get(random).getName();
+    public ProductTilePage getRandom() {
+        int random = new Random().nextInt(products.size());
+        return getAll().get(random);
     }
 
-    public List<ProductTilePage> getProducts() {
-        return productList.stream()
+    public List<ProductTilePage> getAll() {
+        return products.stream()
                 .map(p -> new ProductTilePage(driver, p))
                 .collect(Collectors.toList());
     }
