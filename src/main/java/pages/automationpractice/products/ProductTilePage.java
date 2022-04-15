@@ -7,7 +7,9 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
 import pages.PageBase;
 
-public class ProductTilePage extends PageBase {
+import java.util.Objects;
+
+public final class ProductTilePage extends PageBase {
 
     @FindBy(css = ".product-title a")
     private WebElement name;
@@ -27,6 +29,9 @@ public class ProductTilePage extends PageBase {
     @FindBy(css = ".quick-view")
     private WebElement quickView;
 
+    @FindBy(css = ".product-flags .discount")
+    private WebElement discountFlag;
+
     public ProductTilePage(WebDriver driver, WebElement element) {
         super(driver);
         PageFactory.initElements(new DefaultElementLocatorFactory(element), this);
@@ -35,4 +40,10 @@ public class ProductTilePage extends PageBase {
     public String getName() {
         return name.getText();
     }
+
+    public boolean isDiscountedBy(String value) {
+        return isVisible(discountFlag) && Objects.equals(discountFlag.getText(), value);
+    }
+
+
 }

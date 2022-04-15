@@ -1,9 +1,6 @@
 package pages;
 
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
@@ -11,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
-public class PageBase {
+public abstract class PageBase {
     protected static final int TIMEOUT_S = Integer.parseInt(System.getProperty("webElement.timeOut"));
     protected static final int SLEEP_MS = Integer.parseInt(System.getProperty("webElement.polling"));
     private static final Logger logger = LoggerFactory.getLogger(PageBase.class.getName());
@@ -28,6 +25,7 @@ public class PageBase {
         PageFactory.initElements(driver, this);
     }
 
+
     public void highLight(WebElement element) {
         jse.executeScript("arguments[0].style.border='3px solid red'", element);
     }
@@ -37,5 +35,13 @@ public class PageBase {
         int height = Integer.parseInt(String.valueOf(jse.executeScript("return window.innerHeight")));
 
         return new Dimension(width, height);
+    }
+
+    public boolean isVisible(WebElement element) {
+        try {
+            return element.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 }

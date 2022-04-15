@@ -3,10 +3,10 @@ package pages.automationpractice.search;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.automationpractice.AutomationPracticePageBase;
+import pages.automationpractice.base.AutomationPracticePageBase;
 import pages.automationpractice.products.ProductListPage;
 
-public class SearchResultsPage extends AutomationPracticePageBase {
+public final class SearchResultsPage extends AutomationPracticePageBase {
 
     @FindBy(css = ".page-not-found")
     private WebElement notFoundContent;
@@ -24,7 +24,7 @@ public class SearchResultsPage extends AutomationPracticePageBase {
         super(driver);
     }
 
-    public ProductListPage getProducts() {
+    public ProductListPage products() {
         return new ProductListPage(driver, productList);
     }
 }

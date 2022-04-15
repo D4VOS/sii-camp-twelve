@@ -5,13 +5,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
-import pages.automationpractice.AutomationPracticePageBase;
+import pages.automationpractice.base.AutomationPracticePageBase;
 
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class ProductListPage extends AutomationPracticePageBase {
+public final class ProductListPage extends AutomationPracticePageBase {
 
     @FindBy(css = ".product")
     private List<WebElement> products;
@@ -34,7 +34,7 @@ public class ProductListPage extends AutomationPracticePageBase {
 
     public List<ProductTilePage> getAll() {
         return products.stream()
-                .map(p -> new ProductTilePage(driver, p))
+                .map(product -> new ProductTilePage(driver, product))
                 .collect(Collectors.toList());
     }
 }

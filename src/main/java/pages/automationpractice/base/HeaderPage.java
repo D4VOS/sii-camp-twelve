@@ -1,4 +1,4 @@
-package pages.automationpractice;
+package pages.automationpractice.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,42 +9,39 @@ import pages.PageBase;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AutomationPracticePageBase extends PageBase {
+public final class HeaderPage extends PageBase {
+
     @FindBy(css = "#search_widget .ui-autocomplete-input")
     private WebElement searchInput;
 
     @FindBy(css = "#search_widget button")
     private WebElement searchSubmitButton;
 
-    @FindBy(css = ".ui-menu-item")
+
+    @FindBy(css = ".ui-widget")
+    private WebElement dropdown;
+
+    @FindBy(css = ".ui-widget .ui-menu-item")
     private List<WebElement> hints;
 
-    @FindBy(css = ".ui-menu.ui-widget")
-    private WebElement dropdownWidget;
-
-    public AutomationPracticePageBase(WebDriver driver) {
+    public HeaderPage(WebDriver driver) {
         super(driver);
     }
 
-    // Search bar methods
-    public AutomationPracticePageBase searchFor(String text) {
+    public HeaderPage searchFor(String text) {
         searchInput.clear();
         searchInput.sendKeys(text);
         return this;
     }
 
-    public AutomationPracticePageBase pressSearchSubmit() {
+    public void pressSearchSubmit() {
         searchSubmitButton.click();
-        return this;
     }
 
-    public List<String> getSearchHints() {
-        wait.until(ExpectedConditions.visibilityOf(dropdownWidget));
+    public List<String> getSearchHintTexts() {
+        wait.until(ExpectedConditions.visibilityOf(dropdown));
         return hints.stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
     }
-
-    // End of search bar methods
-
 }

@@ -1,7 +1,7 @@
 browser:
     name: chrome
     webElement:
-        timeOut: 60
+        timeOut: 5
         polling: 200
     attachScreenshot: true
     headless: true
