@@ -1,4 +1,4 @@
-package tests.automationpractice.base;
+package tests.mystore.base;
 
 import config.properties.BrowserEnvironment;
 import config.properties.EnvironmentProperty;

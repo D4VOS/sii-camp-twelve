@@ -1,12 +1,12 @@
-package tests.automationpractice;
+package tests.mystore;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pages.automationpractice.home.HomePage;
-import pages.automationpractice.search.SearchResultsPage;
-import tests.automationpractice.base.Pages;
-import tests.automationpractice.example.ExampleTests;
+import pages.mystore.home.HomePagePage;
+import pages.mystore.search.SearchResultsPagePage;
+import tests.mystore.base.Pages;
+import tests.mystore.example.ExampleTests;
 
 import java.util.List;
 
@@ -18,17 +18,17 @@ public class SearchTests extends Pages {
     @Test
     public void itemFromHomePage_shouldBeVisibleOnResultPage_whenSearchedOut() {
         // Arrange
-        String itemName = at(HomePage.class)
+        String itemName = at(HomePagePage.class)
                 .products()
                 .getRandom()
                 .getName();
 
         // Act
-        at(HomePage.class).inHeader()
+        at(HomePagePage.class).inHeader()
                 .searchFor(itemName)
                 .pressSearchSubmit();
 
-        List<String> sut = at(SearchResultsPage.class)
+        List<String> sut = at(SearchResultsPagePage.class)
                 .products()
                 .getNames();
 
@@ -40,17 +40,17 @@ public class SearchTests extends Pages {
     @Test
     public void itemFromHomePage_shouldBeVisibleOnDropdownList_whenSearchedOut() {
         // Arrange
-        String itemName = at(HomePage.class)
+        String itemName = at(HomePagePage.class)
                 .products()
                 .getRandom()
                 .getName();
 
         // Act
-        at(HomePage.class)
+        at(HomePagePage.class)
                 .inHeader()
                 .searchFor(itemName);
 
-        List<String> sut = at(SearchResultsPage.class)
+        List<String> sut = at(SearchResultsPagePage.class)
                 .inHeader()
                 .getSearchHintTexts();
 

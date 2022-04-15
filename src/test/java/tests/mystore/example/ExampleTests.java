@@ -1,9 +1,9 @@
-package tests.automationpractice.example;
+package tests.mystore.example;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tests.automationpractice.base.Pages;
+import tests.mystore.base.Pages;
 
 public class ExampleTests extends Pages {
     private static final Logger logger = LoggerFactory.getLogger(ExampleTests.class);

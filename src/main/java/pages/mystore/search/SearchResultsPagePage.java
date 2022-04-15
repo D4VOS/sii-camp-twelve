@@ -1,12 +1,12 @@
-package pages.automationpractice.search;
+package pages.mystore.search;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.automationpractice.base.AutomationPracticePageBase;
-import pages.automationpractice.products.ProductListPage;
+import pages.mystore.base.MyStoreBasePage;
+import pages.mystore.products.ProductListPage;
 
-public final class SearchResultsPage extends AutomationPracticePageBase {
+public final class SearchResultsPagePage extends MyStoreBasePage {
 
     @FindBy(css = ".page-not-found")
     private WebElement notFoundContent;
@@ -20,7 +20,7 @@ public final class SearchResultsPage extends AutomationPracticePageBase {
     @FindBy(css = "#js-product-list")
     private WebElement productList;
 
-    public SearchResultsPage(WebDriver driver) {
+    public SearchResultsPagePage(WebDriver driver) {
         super(driver);
     }
 

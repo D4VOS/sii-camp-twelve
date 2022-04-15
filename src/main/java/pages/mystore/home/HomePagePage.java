@@ -1,17 +1,17 @@
-package pages.automationpractice.home;
+package pages.mystore.home;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.automationpractice.base.AutomationPracticePageBase;
-import pages.automationpractice.products.ProductListPage;
+import pages.mystore.base.MyStoreBasePage;
+import pages.mystore.products.ProductListPage;
 
-public final class HomePage extends AutomationPracticePageBase {
+public final class HomePagePage extends MyStoreBasePage {
 
     @FindBy(css = "section.featured-products")
     private WebElement productListGrid;
 
-    public HomePage(WebDriver driver) {
+    public HomePagePage(WebDriver driver) {
         super(driver);
     }
 

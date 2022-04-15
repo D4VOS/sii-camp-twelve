@@ -1,16 +1,16 @@
-package pages.automationpractice.products;
+package pages.mystore.products;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.automationpractice.base.AutomationPracticePageBase;
+import pages.mystore.base.MyStoreBasePage;
 
-public final class PricesDropPage extends AutomationPracticePageBase {
+public final class PricesDropPagePage extends MyStoreBasePage {
 
     @FindBy(css = "#js-product-list")
     private WebElement productListGrid;
 
-    public PricesDropPage(WebDriver driver) {
+    public PricesDropPagePage(WebDriver driver) {
         super(driver);
     }
 

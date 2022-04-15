@@ -1,10 +1,11 @@
-package pages.automationpractice.base;
+package pages.mystore.base;
 
 import org.openqa.selenium.WebDriver;
-import pages.PageBase;
+import pages.BasePage;
 
-public abstract class AutomationPracticePageBase extends PageBase {
-    public AutomationPracticePageBase(WebDriver driver) {
+public abstract class MyStoreBasePage extends BasePage {
+
+    public MyStoreBasePage(WebDriver driver) {
         super(driver);
     }
 

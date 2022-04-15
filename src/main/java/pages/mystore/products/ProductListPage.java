@@ -1,24 +1,21 @@
-package pages.automationpractice.products;
+package pages.mystore.products;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
-import pages.automationpractice.base.AutomationPracticePageBase;
+import pages.BasePage;
 
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public final class ProductListPage extends AutomationPracticePageBase {
+public final class ProductListPage extends BasePage {
 
     @FindBy(css = ".product")
     private List<WebElement> products;
 
     public ProductListPage(WebDriver driver, WebElement element) {
-        super(driver);
-        PageFactory.initElements(new DefaultElementLocatorFactory(element), this);
+        super(driver, element);
     }
 
     public List<String> getNames() {
