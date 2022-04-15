@@ -1,32 +1,31 @@
-package tests.mystore;
+package tests.mystore.search;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pages.mystore.home.HomePagePage;
+import pages.mystore.home.HomePage;
 import pages.mystore.search.SearchResultsPagePage;
-import tests.mystore.base.Pages;
-import tests.mystore.example.ExampleTests;
+import tests.base.Pages;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SearchTests extends Pages {
-    private static final Logger logger = LoggerFactory.getLogger(ExampleTests.class);
+    private static final Logger logger = LoggerFactory.getLogger(SearchTests.class);
 
     @Test
     public void itemFromHomePage_shouldBeVisibleOnResultPage_whenSearchedOut() {
         // Arrange
-        String itemName = at(HomePagePage.class)
+        String itemName = at(HomePage.class)
                 .products()
                 .getRandom()
                 .getName();
 
         // Act
-        at(HomePagePage.class).inHeader()
+        at(HomePage.class).inHeader()
                 .searchFor(itemName)
-                .pressSearchSubmit();
+                .submitSearch();
 
         List<String> sut = at(SearchResultsPagePage.class)
                 .products()
@@ -40,13 +39,13 @@ public class SearchTests extends Pages {
     @Test
     public void itemFromHomePage_shouldBeVisibleOnDropdownList_whenSearchedOut() {
         // Arrange
-        String itemName = at(HomePagePage.class)
+        String itemName = at(HomePage.class)
                 .products()
                 .getRandom()
                 .getName();
 
         // Act
-        at(HomePagePage.class)
+        at(HomePage.class)
                 .inHeader()
                 .searchFor(itemName);
 

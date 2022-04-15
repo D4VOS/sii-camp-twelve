@@ -1,19 +1,19 @@
-package tests.mystore;
+package tests.mystore.productandcategories;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pages.mystore.home.HomePagePage;
+import pages.mystore.home.HomePage;
 import pages.mystore.products.PricesDropPagePage;
 import pages.mystore.products.ProductTilePage;
-import tests.mystore.base.Pages;
+import tests.base.Pages;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProductAndCategoriesTests extends Pages {
-    private static final Logger logger = LoggerFactory.getLogger(ProductAndCategoriesTests.class);
+public class PricesDropTests extends Pages {
+    private static final Logger logger = LoggerFactory.getLogger(PricesDropTests.class);
 
     @Test
     public void priceDrop_shouldBeVisibleInFlags_whenProductIsOnSalePage() {
@@ -22,7 +22,7 @@ public class ProductAndCategoriesTests extends Pages {
         String discountValue = "-" + discountPercentage + "%";
 
         // Act
-        at(HomePagePage.class).inFooter()
+        at(HomePage.class).inFooter()
                 .clickOnPageLink("Prices drop")
                 .waitForLoad();
 
@@ -43,5 +43,4 @@ public class ProductAndCategoriesTests extends Pages {
         ProductTilePage randomProduct = at(PricesDropPagePage.class).products().getRandom();
         assertThat(randomProduct.quickView().isDiscountedBy(discountPercentage)).isTrue();
     }
-
 }

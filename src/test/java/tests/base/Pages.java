@@ -1,4 +1,4 @@
-package tests.mystore.base;
+package tests.base;
 
 import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
@@ -9,7 +9,7 @@ public class Pages extends TestBase {
     private static final Logger logger = LoggerFactory.getLogger(Pages.class.getName());
 
     public <T extends BasePage> T at(Class<T> pageType) {
-        logger.info("Initializing " + pageType.getSimpleName() + " object..");
+        logger.debug("Initializing " + pageType.getSimpleName() + " object..");
         return PageFactory.initElements(driver, pageType);
     }
 }

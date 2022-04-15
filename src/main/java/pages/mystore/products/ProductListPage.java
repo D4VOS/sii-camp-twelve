@@ -14,6 +14,9 @@ public final class ProductListPage extends BasePage {
     @FindBy(css = ".product")
     private List<WebElement> products;
 
+    @FindBy(css = ".pagination")
+    private WebElement productCountLabel;
+
     public ProductListPage(WebDriver driver, WebElement element) {
         super(driver, element);
     }
@@ -33,5 +36,9 @@ public final class ProductListPage extends BasePage {
         return products.stream()
                 .map(product -> new ProductTilePage(driver, product))
                 .collect(Collectors.toList());
+    }
+
+    public String getCountLabel() {
+        return productCountLabel.getText();
     }
 }

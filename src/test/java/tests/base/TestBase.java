@@ -1,4 +1,4 @@
-package tests.mystore.base;
+package tests.base;
 
 import config.properties.BrowserEnvironment;
 import config.properties.EnvironmentProperty;

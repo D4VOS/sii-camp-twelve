@@ -6,12 +6,12 @@ import org.openqa.selenium.support.FindBy;
 import pages.mystore.base.MyStoreBasePage;
 import pages.mystore.products.ProductListPage;
 
-public final class HomePagePage extends MyStoreBasePage {
+public final class HomePage extends MyStoreBasePage {
 
     @FindBy(css = "section.featured-products")
     private WebElement productListGrid;
 
-    public HomePagePage(WebDriver driver) {
+    public HomePage(WebDriver driver) {
         super(driver);
     }
 

@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -60,5 +61,27 @@ public abstract class BasePage {
 
     public void waitForLoad() {
         wait.until(driver -> isPageLoaded());
+    }
+
+    public WebElement getParentUntil(WebElement element, String className) {
+        int depthLimit = 5;
+        WebElement current;
+        for (int i = 0; i < depthLimit; i++) {
+            current = getParent(element);
+            if (current.getAttribute("class").contains(className)) {
+                return current;
+            }
+        }
+        logger.info("Not found parent with class " + className);
+        return null;
+    }
+
+    public WebElement getParent(WebElement child) {
+        return child.findElement(By.xpath("./.."));
+    }
+
+    public void hoverOnElement(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
     }
 }
