@@ -23,6 +23,7 @@ public class BrowserEnvironment {
 
     public WebDriver getDriver() {
         this.driver = getDriverByName(config.getName());
+        this.driver.manage().deleteAllCookies();
         logger.info("Initialized " + config.getName() + " browser driver.");
 
         driver.get(System.getProperty("app.url"));

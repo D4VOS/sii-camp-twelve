@@ -1,6 +1,6 @@
 package helpers.drivers;
 
-import models.Browser;
+import models.config.Browser;
 import org.openqa.selenium.WebDriver;
 
 public class DriverFactory {

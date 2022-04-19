@@ -1,6 +1,6 @@
 package helpers;
 
-import exceptions.NotFoundMatchingOption;
+import exceptions.NotFoundMatchingOptionException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -34,14 +34,14 @@ public class WebElementHelpers {
         return options.stream()
                 .filter(o -> o.getAttribute("value").compareToIgnoreCase(String.valueOf(value)) == 0)
                 .findFirst()
-                .orElseThrow(() -> new NotFoundMatchingOption("Not found option with value: " + value));
+                .orElseThrow(() -> new NotFoundMatchingOptionException("Not found option with value: " + value));
     }
 
     public static <T> WebElement getOptionByText(List<WebElement> options, T text) {
         return options.stream()
                 .filter(o -> o.getText().compareToIgnoreCase(String.valueOf(text)) == 0)
                 .reduce((first, second) -> second)
-                .orElseThrow(() -> new NotFoundMatchingOption("Not found option with text: " + text));
+                .orElseThrow(() -> new NotFoundMatchingOptionException("Not found option with text: " + text));
     }
 
     public static boolean isElementVisible(WebElement element) {

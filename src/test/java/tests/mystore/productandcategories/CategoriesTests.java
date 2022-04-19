@@ -1,5 +1,6 @@
 package tests.mystore.productandcategories;
 
+import models.shop.MenuOption;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +10,6 @@ import pages.mystore.home.HomePage;
 import tests.base.Pages;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,29 +19,30 @@ public class CategoriesTests extends Pages {
     @Test
     public void category_shouldBeCorrectlyDisplayed_whenOpened() {
         // Arrange
-        Map<String, List<String>> categorySets = at(HomePage.class)
+        List<MenuOption> categories = at(HomePage.class)
                 .inHeader()
-                .getCategorySets();
+                .getCategories();
 
-        categorySets.forEach((category, subcategories) -> {
-            // Act & Assert
-            menuItemPageValidate(category);
-            subcategories.forEach(this::menuItemPageValidate);
-        });
+        List<MenuOption> subcategories = at(HomePage.class)
+                .inHeader()
+                .getSubCategories();
+
+        categories.forEach(this::menuItemPageValidate);
+        subcategories.forEach(this::menuItemPageValidate);
     }
 
-    private void menuItemPageValidate(String categoryName) {
-        logger.info("Validating " + categoryName + " page..");
+    private void menuItemPageValidate(MenuOption category) {
+        logger.info("Validating " + category.getTitle() + " page..");
         HeaderPage headerPage = new HeaderPage(driver);
-        headerPage.goToCategory(categoryName);
+        headerPage.goToCategory(category.getTitle());
 
         String title = at(CategoryPage.class).getTitle();
         int productCount = at(CategoryPage.class).products().getAll().size();
         String productCountLabel = at(CategoryPage.class).products().getCountLabel();
 
         // Assert
-        logger.debug("Title: " + title + ", product count: " + productCount + ", product count label: " + productCountLabel);
-        assertThat(title).containsIgnoringCase(categoryName);
+        logger.info("Title: " + title + ", product count: " + productCount + ", product count label: " + productCountLabel);
+        assertThat(title).containsIgnoringCase(category.getTitle());
         assertThat(productCountLabel).contains("of " + productCount + " item(s)");
     }
 }

@@ -11,6 +11,8 @@ import pages.mystore.base.WidgetsPage;
 
 import java.util.Objects;
 
+import static helpers.DataParsers.parsePrice;
+
 public final class ProductTilePage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(ProductTilePage.class);
     private final WidgetsPage widgetsPage;
@@ -67,13 +69,10 @@ public final class ProductTilePage extends BasePage {
         return parsePrice(regularPrice.getText());
     }
 
-    private float parsePrice(String price) {
-        return Float.parseFloat(price.replaceAll("[^0-9?!\\.]", ""));
-    }
 
     public ProductQuickViewPage quickView() {
         Actions actions = new Actions(driver);
-        actions.moveToElement(quickViewButton).perform();
+        actions.moveToElement(name).perform();
         quickViewButton.click();
         return new ProductQuickViewPage(driver, widgetsPage.getModal());
     }

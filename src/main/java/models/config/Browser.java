@@ -1,4 +1,4 @@
-package models;
+package models.config;
 
 import exceptions.UnsupportedBrowserException;
 import helpers.drivers.*;

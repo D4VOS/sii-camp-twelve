@@ -63,11 +63,19 @@ public abstract class BasePage {
         wait.until(driver -> isPageLoaded());
     }
 
-    public WebElement getParentUntil(WebElement element, String className) {
-        int depthLimit = 5;
-        WebElement current;
+    public WebElement getParentUntilHaveClass(WebElement element, String className) {
+        int depthLimit = 3;
+        WebElement current = element;
+        if (current == null) {
+            logger.info("Element should exist.");
+            return null;
+        }
         for (int i = 0; i < depthLimit; i++) {
-            current = getParent(element);
+            current = getParent(current);
+            if (current == null) {
+                logger.info("Not found parent with class " + className);
+                return null;
+            }
             if (current.getAttribute("class").contains(className)) {
                 return current;
             }
