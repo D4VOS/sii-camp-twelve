@@ -30,6 +30,7 @@ public abstract class BasePage {
     }
 
     public void initDrivers(WebDriver driver) {
+//        driver = new ShadowDriver(driver);
         this.driver = driver;
         this.jse = (JavascriptExecutor) driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_S), Duration.ofMillis(SLEEP_MS));
@@ -47,13 +48,6 @@ public abstract class BasePage {
         return new Dimension(width, height);
     }
 
-    public boolean isVisible(WebElement element) {
-        try {
-            return element.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
 
     public boolean isPageLoaded() {
         return jse.executeScript("return document.readyState").equals("complete");

@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 import pages.mystore.product.grid.ProductListPage;
 
+import static helpers.WebElementHelpers.isVisible;
+
 public final class CategoryPage extends BasePage {
 
     @FindBy(css = "#js-product-list-header h1")

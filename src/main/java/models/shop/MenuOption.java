@@ -14,11 +14,6 @@ public class MenuOption {
     MenuOption parent;
 
     @Override
-    public boolean equals(Object o) {
-        return id.equals(o.toString());
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(id);
     }

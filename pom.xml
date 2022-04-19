@@ -176,6 +176,14 @@
             <version>${javafaker.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>shadow-automation-selenium</groupId>
+            <artifactId>shadow-automation-selenium</artifactId>
+            <scope>system</scope>
+            <version>1.0</version>
+            <systemPath>${basedir}\src\lib\shadow-automation-selenium.jar</systemPath>
+        </dependency>
+
     </dependencies>
 
 </project>

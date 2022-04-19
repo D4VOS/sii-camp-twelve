@@ -41,6 +41,6 @@ public class PricesDropTests extends Pages {
             return expectedPrice == currentPrice;
         });
         ProductTilePage randomProduct = at(PricesDropPage.class).products().getRandom();
-        assertThat(randomProduct.quickView().isDiscountedBy(discountPercentage)).isTrue();
+        assertThat(randomProduct.view().isDiscountedBy(discountPercentage)).isTrue();
     }
 }

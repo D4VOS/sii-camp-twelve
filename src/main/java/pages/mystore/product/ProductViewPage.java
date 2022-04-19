@@ -10,11 +10,13 @@ import pages.mystore.base.WidgetsPage;
 
 import java.util.Objects;
 
+import static helpers.WebElementHelpers.isVisible;
+
 public class ProductViewPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(ProductViewPage.class);
 
     private final WidgetsPage widgetsPage;
-    @FindBy(css = ".discount")
+    @FindBy(css = ".current-price .discount")
     private WebElement discount;
 
     @FindBy(css = ".regular-price")
@@ -32,7 +34,7 @@ public class ProductViewPage extends BasePage {
     @FindBy(css = ".product-customization button")
     private WebElement saveCustomizationButton;
 
-    @FindBy(css = ".product-customization-item")
+    @FindBy(css = ".product-customization-item textarea")
     private WebElement customizationField;
 
     public ProductViewPage(WebDriver driver) {
@@ -43,8 +45,8 @@ public class ProductViewPage extends BasePage {
     public boolean isDiscountedBy(int value) {
         String discountText = "SAVE " + value + "%";
         logger.info("Visibility: " + isVisible(discount) +
-                ", Discount: " + discount.getText() +
-                ", Expected: " + value);
+                ", Discount text: " + discount.getText() +
+                ", Expected: " + discountText);
         return isVisible(discount) && Objects.equals(discount.getText(), discountText);
     }
 
@@ -62,7 +64,6 @@ public class ProductViewPage extends BasePage {
 
     public ProductViewPage customizeItem(String text) {
         customizationField.click();
-        customizationField.clear();
         customizationField.sendKeys(text);
         saveCustomization();
         return this;

@@ -44,7 +44,7 @@ public class WebElementHelpers {
                 .orElseThrow(() -> new NotFoundMatchingOptionException("Not found option with text: " + text));
     }
 
-    public static boolean isElementVisible(WebElement element) {
+    public static boolean isVisible(WebElement element) {
         try {
             return element.isDisplayed();
         } catch (NoSuchElementException err) {

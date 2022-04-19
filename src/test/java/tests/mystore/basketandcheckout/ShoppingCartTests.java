@@ -24,7 +24,7 @@ public class ShoppingCartTests extends Pages {
     public void product_ShouldBeVisibleInShoppingCart_whenAdded() {
         ShoppingCart shoppingCart = new ShoppingCart();
 
-        IntStream.range(0, 100).forEach(n -> {
+        IntStream.range(0, 5).forEach(n -> {
             // Arrange
             int amount = new Random().nextInt(5) + 1;
             // Act

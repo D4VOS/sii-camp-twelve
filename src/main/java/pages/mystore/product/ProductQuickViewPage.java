@@ -11,7 +11,9 @@ import pages.mystore.base.WidgetsPage;
 
 import java.util.Objects;
 
-public class ProductQuickViewPage extends BasePage {
+import static helpers.WebElementHelpers.isVisible;
+
+public class ProductQuickViewPage extends BasePage {    // TODO
 
     private static final Logger logger = LoggerFactory.getLogger(ProductQuickViewPage.class);
     private final WidgetsPage widgetsPage;
