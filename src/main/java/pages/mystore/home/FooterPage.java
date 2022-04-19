@@ -1,4 +1,4 @@
-package pages.mystore.base;
+package pages.mystore.home;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

@@ -15,12 +15,12 @@ public class MenuOption {
 
     @Override
     public boolean equals(Object o) {
-        return Objects.equals(id, o) || Objects.equals(title, o);
+        return id.equals(o.toString());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, id, level, parent);
+        return Objects.hash(id);
     }
 }
 

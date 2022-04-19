@@ -1,9 +1,8 @@
-package pages.mystore.products;
+package pages.mystore.product;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.BasePage;
@@ -11,9 +10,9 @@ import pages.mystore.base.WidgetsPage;
 
 import java.util.Objects;
 
-public class ProductQuickViewPage extends BasePage {
+public class ProductViewPage extends BasePage {
+    private static final Logger logger = LoggerFactory.getLogger(ProductViewPage.class);
 
-    private static final Logger logger = LoggerFactory.getLogger(ProductQuickViewPage.class);
     private final WidgetsPage widgetsPage;
     @FindBy(css = ".discount")
     private WebElement discount;
@@ -30,8 +29,14 @@ public class ProductQuickViewPage extends BasePage {
     @FindBy(css = ".add-to-cart")
     private WebElement addToCart;
 
-    public ProductQuickViewPage(WebDriver driver, WebElement element) {
-        super(driver, element);
+    @FindBy(css = ".product-customization button")
+    private WebElement saveCustomizationButton;
+
+    @FindBy(css = ".product-customization-item")
+    private WebElement customizationField;
+
+    public ProductViewPage(WebDriver driver) {
+        super(driver);
         widgetsPage = new WidgetsPage(driver);
     }
 
@@ -43,7 +48,7 @@ public class ProductQuickViewPage extends BasePage {
         return isVisible(discount) && Objects.equals(discount.getText(), discountText);
     }
 
-    public ProductQuickViewPage setAmount(int amount) {
+    public ProductViewPage setAmount(int amount) {
         quantityField.clear();
         quantityField.sendKeys(String.valueOf(amount));
         return this;
@@ -51,7 +56,23 @@ public class ProductQuickViewPage extends BasePage {
 
     public QuickCartSummaryPage addToCart() {
         addToCart.click();
-        wait.until(ExpectedConditions.invisibilityOf(addToCart));
-        return new QuickCartSummaryPage(driver, widgetsPage.getModal());
+        WebElement modal = widgetsPage.getModal();
+        return new QuickCartSummaryPage(driver, modal);
+    }
+
+    public ProductViewPage customizeItem(String text) {
+        customizationField.click();
+        customizationField.clear();
+        customizationField.sendKeys(text);
+        saveCustomization();
+        return this;
+    }
+
+    public void saveCustomization() {
+        saveCustomizationButton.click();
+    }
+
+    public boolean isCustomizable() {
+        return isVisible(customizationField);
     }
 }

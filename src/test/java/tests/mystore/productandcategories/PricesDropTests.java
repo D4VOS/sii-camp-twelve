@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.mystore.home.HomePage;
-import pages.mystore.products.PricesDropPagePage;
-import pages.mystore.products.ProductTilePage;
+import pages.mystore.product.grid.PricesDropPage;
+import pages.mystore.product.grid.ProductTilePage;
 import tests.base.Pages;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class PricesDropTests extends Pages {
                 .clickOnPageLink("Prices drop")
                 .waitForLoad();
 
-        List<ProductTilePage> sut = at(PricesDropPagePage.class)
+        List<ProductTilePage> sut = at(PricesDropPage.class)
                 .products()
                 .getAll();
 
@@ -40,7 +40,7 @@ public class PricesDropTests extends Pages {
             logger.info("Expected: " + expectedPrice + ", current: " + currentPrice);
             return expectedPrice == currentPrice;
         });
-        ProductTilePage randomProduct = at(PricesDropPagePage.class).products().getRandom();
+        ProductTilePage randomProduct = at(PricesDropPage.class).products().getRandom();
         assertThat(randomProduct.quickView().isDiscountedBy(discountPercentage)).isTrue();
     }
 }

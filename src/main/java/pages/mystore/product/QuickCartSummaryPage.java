@@ -1,10 +1,9 @@
-package pages.mystore.products;
+package pages.mystore.product;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
-import pages.mystore.CategoryPage;
 
 import static helpers.DataParsers.parsePrice;
 

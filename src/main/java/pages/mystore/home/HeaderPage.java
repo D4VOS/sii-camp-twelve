@@ -1,4 +1,4 @@
-package pages.mystore.base;
+package pages.mystore.home;
 
 import exceptions.NotFoundMatchingOptionException;
 import models.shop.MenuOption;
@@ -11,7 +11,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.BasePage;
-import pages.mystore.CategoryPage;
+import pages.mystore.base.WidgetsPage;
+import pages.mystore.product.CategoryPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,8 @@ public final class HeaderPage extends BasePage {
     @FindBy(css = "#search_widget button")
     private WebElement searchSubmitButton;
 
-    @FindBy(css = ".category")
-    private List<WebElement> categories;
+    @FindBy(css = "#top-menu")
+    private WebElement mainMenu;
 
     public HeaderPage(WebDriver driver) {
         super(driver);
@@ -47,64 +48,38 @@ public final class HeaderPage extends BasePage {
     }
 
     private void initMenuStructure() {
-        menu = categories.stream()
-                .map(this::parseToMenuOption)
-                .collect(Collectors.toList());
-    }
-
-    private MenuOption parseToMenuOption(WebElement element) {
-        return new MenuOption(
-                getMenuItemText(element),
-                getItemId(element),
-                getMenuDepth(element),
-                getParentOption(element)
-        );
-    }
-
-
-    private MenuOption getExistingOptionByTitle(String title) {
-        return menu.stream().filter(o -> o.getTitle().equalsIgnoreCase(title))
-                .findFirst()
-                .orElseThrow(() -> new NotFoundMatchingOptionException("Menu option with text " + title + " not found"));
-    }
-
-    private MenuOption getExistingOptionById(String id) {
-        return menu.stream().filter(o -> o.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new NotFoundMatchingOptionException("Menu option with id: " + id + " not found"));
-    }
-
-    private String getMenuItemText(WebElement element) {
-        WebElement categoryItem = lookForContainer(element);
-        if (getMenuDepth(categoryItem) == 0) {
-            return categoryItem.getText();
+        if (menu != null) {
+            parseToMenuOption(mainMenu, null);
         }
-        categoryItem = lookForContainer(categoryItem);
-        hoverOnElement(categoryItem);
-        return element.getText();
     }
 
-    private MenuOption getParentOption(WebElement element) {
-        WebElement currentItem = lookForContainer(element);
-        try {
-            WebElement parent = lookForContainer(currentItem);
-            if (parent == null) {
-                return null;
+    private void parseToMenuOption(WebElement menuLevel, MenuOption parent) {
+        int depth = Integer.parseInt(menuLevel.getAttribute("data-depth"));
+        List<WebElement> menuOptions = menuLevel.findElements(By.xpath("./*[@class='category']"));
+
+        menuOptions.forEach(option -> {
+            String id = option.getAttribute("id");
+            if (getExistingMenuOptionById(id) == null) {
+                String text = option.findElement(By.tagName("a")).getText();
+                MenuOption menuOption = new MenuOption(text, id, depth, parent);
+                menu.add(menuOption);
+
+                WebElement lowerMenu = getLowerMenu(option);
+                if (lowerMenu != null) {
+                    hoverOnElement(option);
+                    parseToMenuOption(lowerMenu, menuOption);
+                }
             }
-            currentItem = parent;
-        } catch (NoSuchElementException ignored) {
-        }
-        return new MenuOption(
-                element.getText(),
-                currentItem.getAttribute("id"),
-                0,
-                null
-        );
+        });
     }
 
-    private String getItemId(WebElement element) {
-        WebElement itemRoot = lookForContainer(element);
-        return itemRoot.getAttribute("id");
+
+    private WebElement getLowerMenu(WebElement element) {
+        try {
+            return element.findElement(By.className("top-menu"));
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 
     public HeaderPage searchFor(String text) {
@@ -125,13 +100,6 @@ public final class HeaderPage extends BasePage {
     }
 
     // Menu methods
-    public int getMenuDepth(WebElement element) {
-        WebElement menuRoot = lookForMenu(element);
-        if (menuRoot == null) {
-            return 0;
-        }
-        return Integer.parseInt(menuRoot.getAttribute("data-depth"));
-    }
 
     public MenuOption getRandomCategory() {
         int random = new Random().nextInt(menu.size());
@@ -156,9 +124,22 @@ public final class HeaderPage extends BasePage {
     public CategoryPage goToCategory(String title) {
         logger.info("Opening " + title + " category..");
         WebElement menuItem = getMenuItem(title);
-        hoverHigherLevels(getExistingOptionByTitle(title));
+        hoverHigherLevels(getExistingMenuOptionByText(title));
+        wait.until(ExpectedConditions.elementToBeClickable(menuItem));
         menuItem.click();
         return new CategoryPage(driver);
+    }
+
+    private MenuOption getExistingMenuOptionById(String id) {
+        return menu.stream().filter(i -> i.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
+
+    private MenuOption getExistingMenuOptionByText(String text) {
+        return menu.stream().filter(i -> i.getTitle().equalsIgnoreCase(text))
+                .findFirst()
+                .orElse(null);
     }
 
     private void hoverHigherLevels(MenuOption menuOption) {
@@ -166,19 +147,11 @@ public final class HeaderPage extends BasePage {
             return;
         }
         if (menuOption.getLevel() > 0) {
-            String parentId = menuOption.getParent().getId();
-            hoverHigherLevels(getExistingOptionById(parentId));
+            MenuOption parentOption = menuOption.getParent();
+            hoverHigherLevels(parentOption);
+            String parentId = parentOption.getId();
             WebElement parent = driver.findElement(By.id(parentId));
             hoverOnElement(parent);
         }
-    }
-
-    private WebElement lookForMenu(WebElement element) {
-        WebElement container = lookForContainer(element);
-        return getParentUntilHaveClass(container, "top-menu");
-    }
-
-    private WebElement lookForContainer(WebElement element) {
-        return getParentUntilHaveClass(element, "category");
     }
 }

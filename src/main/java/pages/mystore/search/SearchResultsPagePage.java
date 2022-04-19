@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.mystore.base.MyStoreBasePage;
-import pages.mystore.products.ProductListPage;
+import pages.mystore.product.grid.ProductListPage;
 
 public final class SearchResultsPagePage extends MyStoreBasePage {
 

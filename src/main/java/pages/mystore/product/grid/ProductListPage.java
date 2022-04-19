@@ -1,4 +1,4 @@
-package pages.mystore.products;
+package pages.mystore.product.grid;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

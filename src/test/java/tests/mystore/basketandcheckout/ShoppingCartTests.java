@@ -5,9 +5,10 @@ import models.shop.ShoppingCart;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pages.mystore.base.HeaderPage;
-import pages.mystore.products.ProductTilePage;
-import pages.mystore.products.QuickCartSummaryPage;
+import pages.mystore.home.HeaderPage;
+import pages.mystore.product.ProductViewPage;
+import pages.mystore.product.QuickCartSummaryPage;
+import pages.mystore.product.grid.ProductTilePage;
 import tests.base.Pages;
 import tests.mystore.productandcategories.PricesDropTests;
 
@@ -23,7 +24,7 @@ public class ShoppingCartTests extends Pages {
     public void product_ShouldBeVisibleInShoppingCart_whenAdded() {
         ShoppingCart shoppingCart = new ShoppingCart();
 
-        IntStream.range(0, 15).forEach(n -> {
+        IntStream.range(0, 100).forEach(n -> {
             // Arrange
             int amount = new Random().nextInt(5) + 1;
             // Act
@@ -33,9 +34,12 @@ public class ShoppingCartTests extends Pages {
                     .getRandom();
             CartItem item = new CartItem(product.getName(), product.getCurrentPrice());
 
-            QuickCartSummaryPage summary = product.quickView()
-                    .setAmount(amount)
+            ProductViewPage productView = product.view();
+            if (productView.isCustomizable()) productView.customizeItem("TEST");
+
+            QuickCartSummaryPage summary = productView.setAmount(amount)
                     .addToCart();
+
             shoppingCart.add(item, amount);
 
             // Assert

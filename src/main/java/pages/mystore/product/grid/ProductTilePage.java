@@ -1,4 +1,4 @@
-package pages.mystore.products;
+package pages.mystore.product.grid;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.BasePage;
 import pages.mystore.base.WidgetsPage;
+import pages.mystore.product.ProductQuickViewPage;
+import pages.mystore.product.ProductViewPage;
 
 import java.util.Objects;
 
@@ -75,5 +77,10 @@ public final class ProductTilePage extends BasePage {
         actions.moveToElement(name).perform();
         quickViewButton.click();
         return new ProductQuickViewPage(driver, widgetsPage.getModal());
+    }
+
+    public ProductViewPage view() {
+        name.click();
+        return new ProductViewPage(driver);
     }
 }

@@ -1,16 +1,16 @@
-package pages.mystore.products;
+package pages.mystore.product.grid;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.mystore.base.MyStoreBasePage;
 
-public final class PricesDropPagePage extends MyStoreBasePage {
+public final class PricesDropPage extends MyStoreBasePage {
 
     @FindBy(css = "#js-product-list")
     private WebElement productListGrid;
 
-    public PricesDropPagePage(WebDriver driver) {
+    public PricesDropPage(WebDriver driver) {
         super(driver);
     }
 

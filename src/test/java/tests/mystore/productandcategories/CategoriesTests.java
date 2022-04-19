@@ -4,9 +4,9 @@ import models.shop.MenuOption;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pages.mystore.CategoryPage;
-import pages.mystore.base.HeaderPage;
+import pages.mystore.home.HeaderPage;
 import pages.mystore.home.HomePage;
+import pages.mystore.product.CategoryPage;
 import tests.base.Pages;
 
 import java.util.List;
