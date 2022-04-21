@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
+import pages.mystore.product.grid.FilterPage;
 import pages.mystore.product.grid.ProductListPage;
 
 import static helpers.WebElementHelpers.isVisible;
@@ -19,6 +20,9 @@ public final class CategoryPage extends BasePage {
     @FindBy(css = "#js-product-list")
     private WebElement productListGrid;
 
+    @FindBy(css = "#search_filters")
+    private WebElement searchFilters;
+
     public CategoryPage(WebDriver driver) {
         super(driver);
     }
@@ -33,5 +37,9 @@ public final class CategoryPage extends BasePage {
 
     public ProductListPage products() {
         return new ProductListPage(driver, productListGrid);
+    }
+
+    public FilterPage inFilters() {
+        return new FilterPage(driver, searchFilters);
     }
 }

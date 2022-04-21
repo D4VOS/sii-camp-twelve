@@ -1,5 +1,6 @@
 package pages;
 
+import io.github.sukgu.ShadowDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -30,7 +31,7 @@ public abstract class BasePage {
     }
 
     public void initDrivers(WebDriver driver) {
-//        driver = new ShadowDriver(driver);
+        driver = new ShadowDriver(driver);
         this.driver = driver;
         this.jse = (JavascriptExecutor) driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_S), Duration.ofMillis(SLEEP_MS));
