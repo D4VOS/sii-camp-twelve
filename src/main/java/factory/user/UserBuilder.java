@@ -14,6 +14,10 @@ public class UserBuilder {
         user = new User();
     }
 
+    public FormatDateValidator getDateValidator() {
+        return dateValidator;
+    }
+
     public static UserBuilder start() {
         return new UserBuilder();
     }

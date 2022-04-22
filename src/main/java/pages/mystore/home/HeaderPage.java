@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.BasePage;
+import pages.mystore.auth.LoginPage;
 import pages.mystore.base.WidgetsPage;
 import pages.mystore.basket.BasketPage;
 import pages.mystore.product.CategoryPage;
@@ -25,6 +26,9 @@ public class HeaderPage extends BasePage {
     private final WidgetsPage widgetsPage;
 
     private static List<MenuOption> menu = new ArrayList<>();
+
+    @FindBy(css = ".user-info a")
+    private WebElement loginButton;
     @FindBy(css = "#search_widget .ui-autocomplete-input")
     private WebElement searchInput;
 
@@ -163,5 +167,10 @@ public class HeaderPage extends BasePage {
     public BasketPage goToBasket() {
         cartPreviewButton.click();
         return new BasketPage(driver);
+    }
+
+    public LoginPage goToLogin() {
+        loginButton.click();
+        return new LoginPage(driver);
     }
 }

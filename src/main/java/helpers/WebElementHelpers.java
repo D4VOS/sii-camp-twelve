@@ -39,8 +39,11 @@ public class WebElementHelpers {
 
     public static <T> WebElement getOptionByText(List<WebElement> options, T text) {
         return options.stream()
-                .filter(o -> o.getText().compareToIgnoreCase(String.valueOf(text)) == 0)
-                .reduce((first, second) -> second)
+                .filter(o -> {
+                    System.out.printf("|" + o.getText() + "|");
+                    return o.getText().equalsIgnoreCase(String.valueOf(text));
+                })
+                .findFirst()
                 .orElseThrow(() -> new NotFoundMatchingOptionException("Not found option with text: " + text));
     }
 

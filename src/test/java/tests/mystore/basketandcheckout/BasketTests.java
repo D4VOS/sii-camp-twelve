@@ -8,23 +8,20 @@ import org.slf4j.LoggerFactory;
 import pages.mystore.basket.BasketPage;
 import pages.mystore.basket.CartItemPage;
 import pages.mystore.home.HomePage;
-import pages.mystore.product.ProductViewPage;
-import tests.base.Pages;
+import tests.mystore.basketandcheckout.actions.BasketCheckoutActions;
 import tests.mystore.productandcategories.PricesDropTests;
 
 import java.util.List;
-import java.util.Random;
-import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BasketTests extends Pages {
+public class BasketTests extends BasketCheckoutActions {
     private static final Logger logger = LoggerFactory.getLogger(PricesDropTests.class);
 
     @Test
     public void basket_shouldWorksCorrectly_whenModifyingItems() {
         // Arrange
-        ShoppingCart shoppingCart = createShoppingCart(5);
+        ShoppingCart shoppingCart = createShoppingCart(5, 5);
 
         // Act
         BasketPage basket = at(HomePage.class)
@@ -75,32 +72,7 @@ public class BasketTests extends Pages {
         }
     }
 
-    public void assertCartTotalPrice(BasketPage basketPage, ShoppingCart shoppingCart) {
+    public void assertCartTotalPrice(BasketPage basketPage, models.shop.ShoppingCart shoppingCart) {
         assertThat(basketPage.summary().getTotalItemPrice()).isEqualTo(shoppingCart.getTotalPrice());
-    }
-
-    public ShoppingCart createShoppingCart(int itemCount) {
-        ShoppingCart shoppingCart = new ShoppingCart();
-
-        IntStream.range(0, itemCount).forEach(n -> {
-            // Arrange
-            int amount = new Random().nextInt(5) + 1;
-            // Act
-            ProductViewPage productView = at(HomePage.class).inHeader()
-                    .selectRandomCategory()
-                    .products()
-                    .getRandom()
-                    .view()
-                    .customizeIfPossible()
-                    .setAmount(amount);
-
-            CartItem item = new CartItem(productView);
-            shoppingCart.add(item, amount);
-
-            productView.addToCart()
-                    .continueShopping();
-        });
-
-        return shoppingCart;
     }
 }
