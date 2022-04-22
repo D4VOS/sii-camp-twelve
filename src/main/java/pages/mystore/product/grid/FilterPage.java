@@ -4,15 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.BasePage;
-import pages.mystore.base.WidgetsPage;
 
 import static helpers.DataParsers.parsePrice;
 import static helpers.WebElementHelpers.isVisible;
 
 public class FilterPage extends BasePage {
-    private final WidgetsPage widgetsPage;
     @FindBy(css = ".ui-slider-handle:nth-of-type(1)")
     private WebElement leftPriceSliderHandle;
 
@@ -27,7 +24,6 @@ public class FilterPage extends BasePage {
 
     public FilterPage(WebDriver driver, WebElement element) {
         super(driver, element);
-        widgetsPage = new WidgetsPage(driver);
     }
 
     public FilterPage setMinimumPrice(float price) {
@@ -42,7 +38,7 @@ public class FilterPage extends BasePage {
             action.moveByOffset(5 * direction, 0).perform();
         }
         action.release().perform();
-
+        waitForLoad();
         return this;
     }
 
@@ -58,7 +54,7 @@ public class FilterPage extends BasePage {
             action.moveByOffset(5 * direction, 0).perform();
         }
         action.release().perform();
-
+        waitForLoad();
         return this;
     }
 
@@ -93,10 +89,6 @@ public class FilterPage extends BasePage {
         return currentPriceFilter.getText()
                 .replaceAll("\\s+-\\s+", sep)
                 .split(sep);
-    }
-
-    public void waitForReload() {
-        wait.until(ExpectedConditions.invisibilityOf(widgetsPage.getLoadOverlay()));
     }
 
     public void clearAll() {

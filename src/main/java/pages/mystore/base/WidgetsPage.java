@@ -8,7 +8,7 @@ import pages.BasePage;
 
 import java.util.List;
 
-public final class WidgetsPage extends BasePage {
+public class WidgetsPage extends BasePage {
     @FindBy(css = "#blockcart-modal")
     private WebElement modal;
 
@@ -17,9 +17,6 @@ public final class WidgetsPage extends BasePage {
 
     @FindBy(css = ".ui-widget .ui-menu-item")
     private List<WebElement> searchHints;
-
-    @FindBy(css = ".faceted-overlay")
-    private WebElement loadOverlay;
 
     public WidgetsPage(WebDriver driver) {
         super(driver);
@@ -45,9 +42,5 @@ public final class WidgetsPage extends BasePage {
     private List<WebElement> getVisible(List<WebElement> elements) {
         wait.until(ExpectedConditions.visibilityOfAllElements(elements));
         return elements;
-    }
-
-    public WebElement getLoadOverlay() {
-        return loadOverlay;
     }
 }

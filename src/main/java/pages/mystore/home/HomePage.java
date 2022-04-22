@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import pages.mystore.base.MyStoreBasePage;
 import pages.mystore.product.grid.ProductListPage;
 
-public final class HomePage extends MyStoreBasePage {
+public class HomePage extends MyStoreBasePage {
 
     @FindBy(css = "section.featured-products")
     private WebElement productListGrid;

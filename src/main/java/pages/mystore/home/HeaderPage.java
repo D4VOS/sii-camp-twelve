@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.BasePage;
 import pages.mystore.base.WidgetsPage;
+import pages.mystore.basket.BasketPage;
 import pages.mystore.product.CategoryPage;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public final class HeaderPage extends BasePage {
+public class HeaderPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(HeaderPage.class);
     private final WidgetsPage widgetsPage;
 
@@ -33,8 +34,12 @@ public final class HeaderPage extends BasePage {
     @FindBy(css = "#top-menu")
     private WebElement mainMenu;
 
-    public HeaderPage(WebDriver driver) {
-        super(driver);
+
+    @FindBy(css = ".cart-preview .header")
+    private WebElement cartPreviewButton;
+
+    public HeaderPage(WebDriver driver, WebElement element) {
+        super(driver, element);
         initMenuStructure();
         widgetsPage = new WidgetsPage(driver);
     }
@@ -82,7 +87,7 @@ public final class HeaderPage extends BasePage {
         }
     }
 
-    public HeaderPage searchFor(String text) {
+    public HeaderPage typeInSearchBar(String text) {
         searchInput.clear();
         searchInput.sendKeys(text);
         return this;
@@ -106,9 +111,9 @@ public final class HeaderPage extends BasePage {
         return menu.get(random);
     }
 
-    public CategoryPage goToRandomCategory() {
+    public CategoryPage selectRandomCategory() {
         MenuOption randomCategory = getRandomCategory();
-        return goToCategory(randomCategory.getTitle());
+        return selectCategory(randomCategory.getTitle());
     }
 
     public WebElement getMenuItem(String title) {
@@ -121,7 +126,7 @@ public final class HeaderPage extends BasePage {
     }
 
 
-    public CategoryPage goToCategory(String title) {
+    public CategoryPage selectCategory(String title) {
         logger.info("Opening " + title + " category..");
         WebElement menuItem = getMenuItem(title);
         hoverHigherLevels(getExistingMenuOptionByText(title));
@@ -153,5 +158,10 @@ public final class HeaderPage extends BasePage {
             WebElement parent = driver.findElement(By.id(parentId));
             hoverOnElement(parent);
         }
+    }
+
+    public BasketPage goToBasket() {
+        cartPreviewButton.click();
+        return new BasketPage(driver);
     }
 }

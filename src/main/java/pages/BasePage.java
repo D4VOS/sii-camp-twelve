@@ -1,6 +1,5 @@
 package pages;
 
-import io.github.sukgu.ShadowDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -31,7 +30,7 @@ public abstract class BasePage {
     }
 
     public void initDrivers(WebDriver driver) {
-        driver = new ShadowDriver(driver);
+//        driver = new ShadowDriver(driver);
         this.driver = driver;
         this.jse = (JavascriptExecutor) driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_S), Duration.ofMillis(SLEEP_MS));
@@ -51,7 +50,19 @@ public abstract class BasePage {
 
 
     public boolean isPageLoaded() {
-        return jse.executeScript("return document.readyState").equals("complete");
+        return isDOMLoaded() && isAjaxCompletedTasks();
+    }
+
+    public boolean isDOMLoaded() {
+        String state = jse.executeScript("return document.readyState").toString();
+        logger.debug("DOM: " + state + "\n");
+        return state.equals("complete");
+    }
+
+    public boolean isAjaxCompletedTasks() {
+        String state = jse.executeScript("return jQuery.active").toString();
+        logger.debug("AJAX: " + state + "\n");
+        return state.equals("0");
     }
 
     public void waitForLoad() {

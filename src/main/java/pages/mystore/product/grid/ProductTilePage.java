@@ -16,7 +16,7 @@ import java.util.Objects;
 import static helpers.DataParsers.parsePrice;
 import static helpers.WebElementHelpers.isVisible;
 
-public final class ProductTilePage extends BasePage {
+public class ProductTilePage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(ProductTilePage.class);
     private final WidgetsPage widgetsPage;
     @FindBy(css = ".product-title a")

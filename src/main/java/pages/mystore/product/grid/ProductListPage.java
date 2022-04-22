@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public final class ProductListPage extends BasePage {
+public class ProductListPage extends BasePage {
 
     @FindBy(css = ".product")
     private List<WebElement> products;

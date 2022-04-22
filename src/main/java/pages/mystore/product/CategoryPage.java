@@ -3,13 +3,13 @@ package pages.mystore.product;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.BasePage;
+import pages.mystore.base.MyStoreBasePage;
 import pages.mystore.product.grid.FilterPage;
 import pages.mystore.product.grid.ProductListPage;
 
 import static helpers.WebElementHelpers.isVisible;
 
-public final class CategoryPage extends BasePage {
+public class CategoryPage extends MyStoreBasePage {
 
     @FindBy(css = "#js-product-list-header h1")
     private WebElement categoryTitle;

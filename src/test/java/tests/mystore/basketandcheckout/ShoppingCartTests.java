@@ -5,10 +5,9 @@ import models.shop.ShoppingCart;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pages.mystore.home.HeaderPage;
+import pages.mystore.home.HomePage;
 import pages.mystore.product.ProductViewPage;
 import pages.mystore.product.QuickCartSummaryPage;
-import pages.mystore.product.grid.ProductTilePage;
 import tests.base.Pages;
 import tests.mystore.productandcategories.PricesDropTests;
 
@@ -28,23 +27,23 @@ public class ShoppingCartTests extends Pages {
             // Arrange
             int amount = new Random().nextInt(5) + 1;
             // Act
-            ProductTilePage product = at(HeaderPage.class)
-                    .goToRandomCategory()
+            ProductViewPage productView = at(HomePage.class)
+                    .inHeader()
+                    .selectRandomCategory()
                     .products()
-                    .getRandom();
-            CartItem item = new CartItem(product.getName(), product.getCurrentPrice());
+                    .getRandom()
+                    .view()
+                    .customizeIfPossible()
+                    .setAmount(amount);
 
-            ProductViewPage productView = product.view();
-            if (productView.isCustomizable()) productView.customizeItem("TEST");
-
-            QuickCartSummaryPage summary = productView.setAmount(amount)
-                    .addToCart();
-
+            CartItem item = new CartItem(productView);
             shoppingCart.add(item, amount);
+
+            QuickCartSummaryPage summary = productView.addToCart();
 
             // Assert
             logger.info("Shopping cart:\n" + shoppingCart +
-                    "\nSelected product:\n" + item + " x" + amount);
+                    "\nAdded product:\n" + item + " x" + amount);
 
             assertThat(item.getName()).isEqualTo(summary.getProductName());
             assertThat(item.getPrice()).isEqualTo(summary.getProductPrice());
@@ -53,7 +52,5 @@ public class ShoppingCartTests extends Pages {
 
             summary.continueShopping();
         });
-
-
     }
 }

@@ -4,7 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pages.mystore.home.HeaderPage;
+import pages.mystore.home.HomePage;
 import pages.mystore.product.CategoryPage;
 import pages.mystore.product.grid.ProductTilePage;
 import tests.base.Pages;
@@ -24,7 +24,7 @@ public class FiltersTests extends Pages {
                 Pair.of(15.00F, 29.00F),
                 Pair.of(9.00F, 25.00F)
         );
-        at(HeaderPage.class).goToCategory("Art");
+        at(HomePage.class).inHeader().selectCategory("Art");
 
         filterPairs.forEach(filters -> {
             float min = filters.getLeft();
@@ -33,8 +33,7 @@ public class FiltersTests extends Pages {
             // Act
             at(CategoryPage.class).inFilters()
                     .setMinimumPrice(min)
-                    .setMaximumPrice(max)
-                    .waitForReload();
+                    .setMaximumPrice(max);
 
             List<ProductTilePage> sut = at(CategoryPage.class)
                     .products()

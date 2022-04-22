@@ -5,24 +5,39 @@ import exceptions.NotFoundItemInCartException;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import static helpers.DataParsers.round;
+
 public class ShoppingCart extends HashMap<CartItem, Integer> {
 
-    public Integer add(CartItem toAdd, int amount) {
-        return put(toAdd, getOrDefault(toAdd, 0) + amount);
+    public void add(CartItem toAdd, int amount) {
+        put(toAdd, getOrDefault(toAdd, 0) + amount);
     }
 
-    public Integer remove(CartItem toRemove) {
-        if (containsKey(toRemove)) {
-            return put(toRemove, get(toRemove) - 1);
+    public void remove(CartItem key, int amount) {
+        if (!containsKey(key)) {
+            throw new NotFoundItemInCartException("Item " + key + " is not present in shop cart.");
+
         }
-        throw new NotFoundItemInCartException("Item " + toRemove + " is not present in shop cart.");
+        int currentAmount = get(key);
+        if (amount >= currentAmount) {
+            remove(key);
+        }
+        put(key, currentAmount - amount);
+    }
+
+    public void update(CartItem key, int amount) {
+        if (!containsKey(key)) {
+            throw new NotFoundItemInCartException("Item " + key + " is not present in shop cart.");
+
+        }
+        put(key, amount);
     }
 
 
     public float getTotalPrice() {
-        return (float) entrySet().stream()
+        return round((float) entrySet().stream()
                 .mapToDouble(e -> e.getKey().getPrice() * e.getValue())
-                .sum();
+                .sum(), 2);
     }
 
     public int getTotalAmount() {
@@ -33,8 +48,9 @@ public class ShoppingCart extends HashMap<CartItem, Integer> {
 
     @Override
     public String toString() {
-        return "Total amount: " + size() +
+        return "Different products: " + size() +
                 "\nTotal price: " + getTotalPrice() +
+                "\nTotal amount: " + getTotalAmount() +
                 "\nItems:\n" +
                 entrySet().stream()
                         .map(e -> "\t- " + e.getKey().toString() + " x" + e.getValue() + "\n")

@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import pages.mystore.base.MyStoreBasePage;
 import pages.mystore.product.grid.ProductListPage;
 
-public final class SearchResultsPagePage extends MyStoreBasePage {
+public class SearchResultsPagePage extends MyStoreBasePage {
 
     @FindBy(css = ".page-not-found")
     private WebElement notFoundContent;

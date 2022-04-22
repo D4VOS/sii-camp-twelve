@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 @Execution(ExecutionMode.CONCURRENT)
-public class TestBase {
+public abstract class TestBase {
     private static final Logger logger = LoggerFactory.getLogger(TestBase.class.getName());
     static BrowserEnvironment browserEnvironment;
     static EnvironmentProperty environmentProperty;

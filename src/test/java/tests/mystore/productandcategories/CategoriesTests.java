@@ -4,7 +4,6 @@ import models.shop.MenuOption;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pages.mystore.home.HeaderPage;
 import pages.mystore.home.HomePage;
 import pages.mystore.product.CategoryPage;
 import tests.base.Pages;
@@ -33,8 +32,9 @@ public class CategoriesTests extends Pages {
 
     private void menuItemPageValidate(MenuOption category) {
         logger.info("Validating " + category.getTitle() + " page..");
-        HeaderPage headerPage = new HeaderPage(driver);
-        headerPage.goToCategory(category.getTitle());
+        at(HomePage.class)
+                .inHeader()
+                .selectCategory(category.getTitle());
 
         String title = at(CategoryPage.class).getTitle();
         int productCount = at(CategoryPage.class).products().getAll().size();

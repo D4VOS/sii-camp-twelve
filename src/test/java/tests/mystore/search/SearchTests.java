@@ -24,7 +24,7 @@ public class SearchTests extends Pages {
 
         // Act
         at(HomePage.class).inHeader()
-                .searchFor(itemName)
+                .typeInSearchBar(itemName)
                 .submitSearch();
 
         List<String> sut = at(SearchResultsPagePage.class)
@@ -45,9 +45,8 @@ public class SearchTests extends Pages {
                 .getName();
 
         // Act
-        at(HomePage.class)
-                .inHeader()
-                .searchFor(itemName);
+        at(HomePage.class).inHeader()
+                .typeInSearchBar(itemName);
 
         List<String> sut = at(SearchResultsPagePage.class)
                 .inHeader()

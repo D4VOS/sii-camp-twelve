@@ -12,4 +12,9 @@ public class User {
     private String email;
     private String password;
     private String birthDate;
+
+    @Override
+    public String toString() {
+        return socialTitle + ' ' + firstName + ' ' + lastName;
+    }
 }

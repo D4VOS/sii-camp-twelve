@@ -9,13 +9,13 @@ import java.util.List;
 
 import static helpers.WebElementHelpers.getOptionByText;
 
-public final class FooterPage extends BasePage {
+public class FooterPage extends BasePage {
 
     @FindBy(css = "#footer li a")
     private List<WebElement> subPageLinks;
 
-    public FooterPage(WebDriver driver) {
-        super(driver);
+    public FooterPage(WebDriver driver, WebElement element) {
+        super(driver, element);
     }
 
     public FooterPage clickOnPageLink(String name) {

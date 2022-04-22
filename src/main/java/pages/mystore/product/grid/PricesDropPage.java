@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.mystore.base.MyStoreBasePage;
 
-public final class PricesDropPage extends MyStoreBasePage {
+public class PricesDropPage extends MyStoreBasePage {
 
     @FindBy(css = "#js-product-list")
     private WebElement productListGrid;
