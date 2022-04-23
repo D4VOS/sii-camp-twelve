@@ -1,6 +1,7 @@
 package factory.user;
 
-import models.config.User;
+import models.entities.Address;
+import models.entities.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import validators.FormatDateValidator;
@@ -10,7 +11,7 @@ public class UserBuilder {
     private User user;
     FormatDateValidator dateValidator = new FormatDateValidator("MM/dd/yyyy");
 
-    UserBuilder() {
+    protected UserBuilder() {
         user = new User();
     }
 
@@ -57,6 +58,11 @@ public class UserBuilder {
         } else {
             logger.warn(birthDate + " is not valid data in (" + dateValidator.getDateFormat() + ") format.");
         }
+        return this;
+    }
+
+    public UserBuilder address(Address address) {
+        user.setAddress(address);
         return this;
     }
 }

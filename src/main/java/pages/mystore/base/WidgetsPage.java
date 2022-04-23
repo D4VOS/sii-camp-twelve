@@ -9,7 +9,7 @@ import pages.BasePage;
 import java.util.List;
 
 public class WidgetsPage extends BasePage {
-    @FindBy(css = "#blockcart-modal")
+    @FindBy(css = "#blockcart-modal,#modal")
     private WebElement modal;
 
     @FindBy(css = ".ui-widget")

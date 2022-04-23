@@ -7,7 +7,7 @@ import pages.BasePage;
 
 import java.util.List;
 
-import static helpers.WebElementHelpers.getOptionByText;
+import static helpers.web.WebElementHelpers.getOptionByText;
 
 public class FooterPage extends BasePage {
 

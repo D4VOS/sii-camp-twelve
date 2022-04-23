@@ -3,8 +3,7 @@ package models.shop;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import pages.mystore.basket.CartItemPage;
-import pages.mystore.product.ProductViewPage;
+import pages.mystore.basket.ProductInfoQueryable;
 
 @Data
 @AllArgsConstructor
@@ -20,15 +19,9 @@ public class CartItem {
         return name + " ($" + price + ")";
     }
 
-    public CartItem(ProductViewPage productView) {
-        name = productView.getName();
-        price = productView.getPrice();
-        customizeText = productView.getCustomizedText();
-    }
-
-    public CartItem(CartItemPage item) {
-        name = item.getName();
-        price = item.getPrice();
-        customizeText = item.getCustomizedText();
+    public CartItem(ProductInfoQueryable productInfo) {
+        name = productInfo.getName();
+        price = productInfo.getPrice();
+        customizeText = productInfo.getCustomizedText();
     }
 }

@@ -1,4 +1,4 @@
-package helpers;
+package helpers.web;
 
 import exceptions.NotFoundMatchingOptionException;
 import org.openqa.selenium.Keys;
@@ -39,10 +39,14 @@ public class WebElementHelpers {
 
     public static <T> WebElement getOptionByText(List<WebElement> options, T text) {
         return options.stream()
-                .filter(o -> {
-                    System.out.printf("|" + o.getText() + "|");
-                    return o.getText().equalsIgnoreCase(String.valueOf(text));
-                })
+                .filter(o -> o.getText().equalsIgnoreCase(String.valueOf(text)))
+                .findFirst()
+                .orElseThrow(() -> new NotFoundMatchingOptionException("Not found option with text: " + text));
+    }
+
+    public static <T> WebElement getOptionByContainingText(List<WebElement> options, T text) {
+        return options.stream()
+                .filter(o -> o.getText().contains(String.valueOf(text)))
                 .findFirst()
                 .orElseThrow(() -> new NotFoundMatchingOptionException("Not found option with text: " + text));
     }

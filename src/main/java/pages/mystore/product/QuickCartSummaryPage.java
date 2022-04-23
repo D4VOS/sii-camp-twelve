@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
-import static helpers.DataParsers.parsePrice;
+import static helpers.data.DataUtils.parsePrice;
 
 public class QuickCartSummaryPage extends BasePage {
 

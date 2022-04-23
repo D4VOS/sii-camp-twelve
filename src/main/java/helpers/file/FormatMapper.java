@@ -1,4 +1,4 @@
-package helpers.handlers;
+package helpers.file;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

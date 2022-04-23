@@ -8,7 +8,7 @@ import pages.mystore.home.HomePage;
 
 import java.util.List;
 
-import static helpers.WebElementHelpers.getOptionByText;
+import static helpers.web.WebElementHelpers.getOptionByText;
 
 public class RegisterPage extends MyStoreBasePage {
 

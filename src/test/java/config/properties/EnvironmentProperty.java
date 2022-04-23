@@ -1,7 +1,7 @@
 package config.properties;
 
-import helpers.handlers.DataSerializer;
-import helpers.handlers.FormatMapper;
+import helpers.file.DataSerializer;
+import helpers.file.FormatMapper;
 import models.config.ConfigFile;
 import models.config.Environment;
 import org.slf4j.Logger;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static helpers.ObjectFormatter.flattenObject;
+import static helpers.data.ObjectFormatter.flattenObject;
 
 
 public class EnvironmentProperty {

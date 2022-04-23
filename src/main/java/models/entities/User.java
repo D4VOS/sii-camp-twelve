@@ -1,4 +1,4 @@
-package models.config;
+package models.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +12,7 @@ public class User {
     private String email;
     private String password;
     private String birthDate;
+    private Address address;
 
     @Override
     public String toString() {

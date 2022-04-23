@@ -8,14 +8,14 @@ import org.slf4j.LoggerFactory;
 import pages.mystore.basket.BasketPage;
 import pages.mystore.basket.CartItemPage;
 import pages.mystore.home.HomePage;
-import tests.mystore.basketandcheckout.actions.BasketCheckoutActions;
+import tests.mystore.basketandcheckout.actions.BasketAndCheckoutActions;
 import tests.mystore.productandcategories.PricesDropTests;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BasketTests extends BasketCheckoutActions {
+public class BasketTests extends BasketAndCheckoutActions {
     private static final Logger logger = LoggerFactory.getLogger(PricesDropTests.class);
 
     @Test

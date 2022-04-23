@@ -2,6 +2,7 @@ package models.config;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import models.entities.User;
 
 @Data
 @NoArgsConstructor

@@ -11,7 +11,7 @@ import pages.mystore.base.WidgetsPage;
 
 import java.util.Objects;
 
-import static helpers.WebElementHelpers.isVisible;
+import static helpers.web.WebElementHelpers.isVisible;
 
 public class ProductQuickViewPage extends BasePage {    // TODO
 

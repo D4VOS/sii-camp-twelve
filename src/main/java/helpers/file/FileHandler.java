@@ -1,4 +1,4 @@
-package helpers.handlers;
+package helpers.file;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;

@@ -9,10 +9,10 @@ import pages.BasePage;
 
 import java.util.stream.IntStream;
 
-import static helpers.DataParsers.parsePrice;
-import static helpers.WebElementHelpers.isVisible;
+import static helpers.data.DataUtils.parsePrice;
+import static helpers.web.WebElementHelpers.isVisible;
 
-public class CartItemPage extends BasePage {
+public class CartItemPage extends BasePage implements ProductInfoQueryable {
 
     @FindBy(css = ".js-cart-line-product-quantity")
     private WebElement quantity;

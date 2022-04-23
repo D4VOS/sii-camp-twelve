@@ -1,6 +1,6 @@
 package tests.mystore.actions;
 
-import models.config.User;
+import models.entities.User;
 import pages.mystore.auth.LoginPage;
 import pages.mystore.auth.RegisterPage;
 import pages.mystore.home.HomePage;

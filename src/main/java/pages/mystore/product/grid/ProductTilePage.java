@@ -13,8 +13,8 @@ import pages.mystore.product.ProductViewPage;
 
 import java.util.Objects;
 
-import static helpers.DataParsers.parsePrice;
-import static helpers.WebElementHelpers.isVisible;
+import static helpers.data.DataUtils.parsePrice;
+import static helpers.web.WebElementHelpers.isVisible;
 
 public class ProductTilePage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(ProductTilePage.class);

@@ -5,7 +5,7 @@ import exceptions.NotFoundItemInCartException;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-import static helpers.DataParsers.round;
+import static helpers.data.DataUtils.round;
 
 public class ShoppingCart extends HashMap<CartItem, Integer> {
 

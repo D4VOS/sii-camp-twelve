@@ -7,7 +7,7 @@ import pages.mystore.base.MyStoreBasePage;
 import pages.mystore.product.grid.FilterPage;
 import pages.mystore.product.grid.ProductListPage;
 
-import static helpers.WebElementHelpers.isVisible;
+import static helpers.web.WebElementHelpers.isVisible;
 
 public class CategoryPage extends MyStoreBasePage {
 

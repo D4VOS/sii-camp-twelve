@@ -5,26 +5,39 @@ browser:
         polling: 200
     attachScreenshot: true
     headless: true
-activeEnvironment: prod
+activeEnvironment: test
 environments:
     test:
         app:
             url: http://146.59.32.4/
         user:
-            socialTitle: Mr
+            socialTitle: Mr.
             firstName: Adam
             lastName: Nowak
             email: adamnowak@poczta.pl
             password: haslo123
             birthDate: 03/15/2000
+            address:
+                firstLine: "ul. Kwiatowa 21"
+                city: "Poznań"
+                state: "AA"
+                zipPostalCode: "54-102"
+                country: "Poland"
     prod:
         app:
             url: http://146.59.32.4/
         user:
-            socialTitle: Mrs
+            socialTitle: Mrs.
             firstName: Karolina
             lastName: Nowak
             email: kaarolan@poczta.pl
             password: trudnehaslo1
             birthDate: 07/10/1999
+            address:
+                firstLine: "4323 Berkley Street"
+                city: "Philadelphia"
+                state: "Texas"
+                zipPostalCode: "19-108"
+                country: "Poland"
+
 

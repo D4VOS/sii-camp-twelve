@@ -6,8 +6,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
-import static helpers.DataParsers.parsePrice;
-import static helpers.WebElementHelpers.isVisible;
+import static helpers.data.DataUtils.parsePrice;
+import static helpers.web.WebElementHelpers.isVisible;
 
 public class FilterPage extends BasePage {
     @FindBy(css = ".ui-slider-handle:nth-of-type(1)")

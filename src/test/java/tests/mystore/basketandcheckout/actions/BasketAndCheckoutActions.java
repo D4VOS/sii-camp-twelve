@@ -9,7 +9,7 @@ import tests.mystore.actions.MyStoreActions;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-public class BasketCheckoutActions extends MyStoreActions {
+public class BasketAndCheckoutActions extends MyStoreActions {
     public ShoppingCart createShoppingCart(int itemCount, int maxAtOnce) {
         ShoppingCart shoppingCart = new ShoppingCart();
 

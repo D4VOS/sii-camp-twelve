@@ -1,7 +1,7 @@
 package pages.mystore.product;
 
 import factory.user.UserFactory;
-import models.config.User;
+import models.entities.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,13 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.mystore.base.MyStoreBasePage;
 import pages.mystore.base.WidgetsPage;
+import pages.mystore.basket.ProductInfoQueryable;
 
 import java.util.Objects;
 
-import static helpers.DataParsers.parsePrice;
-import static helpers.WebElementHelpers.isVisible;
+import static helpers.data.DataUtils.parsePrice;
+import static helpers.web.WebElementHelpers.isVisible;
 
-public class ProductViewPage extends MyStoreBasePage {
+public class ProductViewPage extends MyStoreBasePage implements ProductInfoQueryable {
     private static final Logger logger = LoggerFactory.getLogger(ProductViewPage.class);
 
     private final WidgetsPage widgetsPage;
@@ -54,7 +55,7 @@ public class ProductViewPage extends MyStoreBasePage {
         return name.getText();
     }
 
-    public Float getPrice() {
+    public float getPrice() {
         return parsePrice(currentPrice.getText());
     }
 
