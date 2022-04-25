@@ -14,11 +14,13 @@ import pages.mystore.order.OrderAddressPage;
 import pages.mystore.order.OrderPaymentPage;
 import pages.mystore.order.confirmation.OrderConfirmationPage;
 import pages.mystore.order.shipping.OrderShippingPage;
-import tests.mystore.basketandcheckout.actions.BasketAndCheckoutActions;
+import tests.actions.mystore.ShoppingCartActions;
+
+import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CheckoutTests extends BasketAndCheckoutActions {
+public class CheckoutTests extends ShoppingCartActions {
     private static final Logger logger = LoggerFactory.getLogger(CheckoutTests.class);
 
     @Test
@@ -28,7 +30,10 @@ public class CheckoutTests extends BasketAndCheckoutActions {
         String expectedPaymentStatus = "Awaiting bank wire payment";
         String expectedShippingMethod = "TesterSii";
         User user = new UserFactory().getRandomUser();
-        registerUser(user);
+        at(HomePage.class).inHeader()
+                .goToLogin()
+                .goToRegister()
+                .registerUser(user);
 
         ShoppingCart shoppingCart = createShoppingCart(5, 3);
 
@@ -55,6 +60,7 @@ public class CheckoutTests extends BasketAndCheckoutActions {
         assertThat(confirmationPage.details().getShippingMethod()).isEqualTo(expectedShippingMethod);
         String orderId = confirmationPage.details()
                 .getOrderReference();
+        logger.info("Order reference: " + orderId);
 
         AccountOrdersPage accountOrders = at(OrderConfirmationPage.class).inHeader()
                 .goToAccount()
@@ -73,6 +79,7 @@ public class CheckoutTests extends BasketAndCheckoutActions {
                 user.getAddress().getZipPostalCode() + " " + user.getAddress().getCity(),
                 user.getAddress().getCountry()
         };
+        logger.info("Expected address rows: " + Arrays.toString(expectedAddressRows));
         assertThat(orderDetails.getDeliveryAddressRows()).containsExactly(expectedAddressRows);
         assertThat(orderDetails.getInvoiceAddressRows()).containsExactly(expectedAddressRows);
     }

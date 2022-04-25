@@ -1,15 +1,14 @@
-package tests.mystore.basketandcheckout.actions;
+package tests.actions.mystore;
 
 import models.shop.CartItem;
 import models.shop.ShoppingCart;
 import pages.mystore.home.HomePage;
 import pages.mystore.product.ProductViewPage;
-import tests.mystore.actions.MyStoreActions;
 
 import java.util.Random;
 import java.util.stream.IntStream;
 
-public class BasketAndCheckoutActions extends MyStoreActions {
+public class ShoppingCartActions extends MyStoreActions {
     public ShoppingCart createShoppingCart(int itemCount, int maxAtOnce) {
         ShoppingCart shoppingCart = new ShoppingCart();
 

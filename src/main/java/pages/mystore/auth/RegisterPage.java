@@ -1,5 +1,6 @@
 package pages.mystore.auth;
 
+import models.entities.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -95,5 +96,18 @@ public class RegisterPage extends MyStoreBasePage {
     public HomePage submit() {
         submit.click();
         return new HomePage(driver);
+    }
+
+    public HomePage registerUser(User user) {
+        setSocialTitle(user.getSocialTitle());
+        fillFirstName(user.getFirstName());
+        fillLastName(user.getLastName());
+        fillEmail(user.getEmail());
+        fillPassword(user.getPassword());
+        fillBirthDate(user.getBirthDate());
+        acceptCustomerPrivacy()
+                .acceptTOS();
+
+        return submit();
     }
 }

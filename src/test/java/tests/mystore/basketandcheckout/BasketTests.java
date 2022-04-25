@@ -8,14 +8,12 @@ import org.slf4j.LoggerFactory;
 import pages.mystore.basket.BasketPage;
 import pages.mystore.basket.CartItemPage;
 import pages.mystore.home.HomePage;
-import tests.mystore.basketandcheckout.actions.BasketAndCheckoutActions;
+import tests.actions.mystore.ShoppingCartActions;
 import tests.mystore.productandcategories.PricesDropTests;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BasketTests extends BasketAndCheckoutActions {
+public class BasketTests extends ShoppingCartActions {
     private static final Logger logger = LoggerFactory.getLogger(PricesDropTests.class);
 
     @Test
@@ -28,16 +26,8 @@ public class BasketTests extends BasketAndCheckoutActions {
                 .inHeader()
                 .goToBasket();
 
-        List<CartItemPage> products = basket.products().getAll();
-
         // Assert
-        assertThat(products).allMatch(item -> {
-            CartItem cartItem = new CartItem(item);
-            int amount = shoppingCart.get(cartItem);
-            boolean contains = shoppingCart.containsKey(cartItem);
-
-            return contains && amount == item.getQuantity();
-        });
+        assertThat(shoppingCart.isEquivalent(basket.products().getAll())).isTrue();
         assertCartTotalPrice(basket, shoppingCart);
 
         CartItemPage firstItem = basket.products().getFirst();

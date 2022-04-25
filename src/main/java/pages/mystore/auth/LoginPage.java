@@ -1,5 +1,6 @@
 package pages.mystore.auth;
 
+import models.entities.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -44,5 +45,12 @@ public class LoginPage extends MyStoreBasePage {
     public HomePage submit() {
         submit.click();
         return new HomePage(driver);
+    }
+
+    public HomePage loginAs(User user) {
+        fillEmail(user.getEmail());
+        fillPassword(user.getPassword());
+
+        return submit();
     }
 }
