@@ -1,5 +1,6 @@
 package pages.mystore.order;
 
+import models.entities.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -102,22 +103,19 @@ public class OrderAddressPage extends OrderPage {
         return this;
     }
 
-    public OrderAddressPage fillPhone(String phoneNumber) {
-        phoneField.clear();
-        phoneField.sendKeys(phoneNumber);
-        return this;
-    }
-
-
-    public OrderAddressPage useSameAddressForInvoice() {
-        if (!useThisAddressForInvoiceCheckbox.isSelected()) {
-            useThisAddressForInvoiceCheckbox.click();
-        }
-        return this;
-    }
-
     public OrderShippingPage goToShipping() {
         continueButton.click();
         return new OrderShippingPage(driver);
+    }
+
+    public OrderAddressPage fillAddress(User user) {
+        fillFirstName(user.getFirstName());
+        fillLastName(user.getLastName());
+        fillAddress(user.getAddress().getFirstLine());
+        fillCity(user.getAddress().getCity());
+        selectState(user.getAddress().getState());
+        fillZipCode(user.getAddress().getZipPostalCode());
+        selectCountry(user.getAddress().getCountry());
+        return this;
     }
 }

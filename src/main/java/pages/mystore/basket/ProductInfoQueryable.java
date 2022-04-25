@@ -1,9 +1,11 @@
 package pages.mystore.basket;
 
 public interface ProductInfoQueryable {
-    public String getName();
+    String getName();
 
-    public float getPrice();
+    float getPrice();
 
-    public String getCustomizedText();
+    String getCustomizedText();
+
+    int getQuantity();
 }

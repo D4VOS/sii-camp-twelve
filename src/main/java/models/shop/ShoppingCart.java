@@ -1,8 +1,10 @@
 package models.shop;
 
 import exceptions.NotFoundItemInCartException;
+import pages.mystore.basket.ProductInfoQueryable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static helpers.data.DataUtils.round;
@@ -55,5 +57,12 @@ public class ShoppingCart extends HashMap<CartItem, Integer> {
                 entrySet().stream()
                         .map(e -> "\t- " + e.getKey().toString() + " x" + e.getValue() + "\n")
                         .collect(Collectors.joining());
+    }
+
+    public boolean isEquivalent(List<? extends ProductInfoQueryable> products) {
+        return products.stream().allMatch(p -> {
+            CartItem item = new CartItem(p);
+            return containsKey(item) && p.getQuantity() == get(item);
+        });
     }
 }

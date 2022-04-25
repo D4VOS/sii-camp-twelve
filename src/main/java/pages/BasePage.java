@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.util.List;
 
 public abstract class BasePage {
     protected static final int TIMEOUT_S = Integer.parseInt(System.getProperty("webElement.timeOut"));
@@ -29,7 +30,7 @@ public abstract class BasePage {
         PageFactory.initElements(new DefaultElementLocatorFactory(element), this);
     }
 
-    public void initDrivers(WebDriver driver) {
+    private void initDrivers(WebDriver driver) {
 //        driver = new ShadowDriver(driver);
         this.driver = driver;
         this.jse = (JavascriptExecutor) driver;
@@ -37,8 +38,12 @@ public abstract class BasePage {
         logger.debug("Created WebDriverWait with timeout: " + TIMEOUT_S + "s and sleep: " + SLEEP_MS + "ms");
     }
 
+    public void highLight(WebElement element, String color) {
+        jse.executeScript("arguments[0].style.border='3px solid " + color + '\'', element);
+    }
+
     public void highLight(WebElement element) {
-        jse.executeScript("arguments[0].style.border='3px solid red'", element);
+        highLight(element, "red");
     }
 
     public Dimension getViewPortSize() {
@@ -69,7 +74,7 @@ public abstract class BasePage {
         wait.until(driver -> isPageLoaded());
     }
 
-    public WebElement getParentUntilHaveClass(WebElement element, String className) {
+    protected WebElement getParentUntilHaveClass(WebElement element, String className) {
         int depthLimit = 3;
         WebElement current = element;
         if (current == null) {
@@ -90,12 +95,21 @@ public abstract class BasePage {
         return null;
     }
 
-    public WebElement getParent(WebElement child) {
+    protected WebElement getParent(WebElement child) {
         return child.findElement(By.xpath("./.."));
     }
 
     public void hoverOnElement(WebElement element) {
         Actions actions = new Actions(driver);
         actions.moveToElement(element).perform();
+    }
+
+    protected String getSingleNodeText(WebElement element) {
+        String text = element.getText().trim();
+        List<WebElement> children = element.findElements(By.xpath("./*"));
+        for (WebElement child : children) {
+            text = text.replaceFirst(child.getText(), "").trim();
+        }
+        return text;
     }
 }

@@ -16,7 +16,7 @@ import static helpers.web.WebElementHelpers.isVisible;
 public class ProductQuickViewPage extends BasePage {    // TODO
 
     private static final Logger logger = LoggerFactory.getLogger(ProductQuickViewPage.class);
-    private final WidgetsPage widgetsPage;
+    private final WidgetsPage widgets;
     @FindBy(css = ".discount")
     private WebElement discount;
 
@@ -34,7 +34,7 @@ public class ProductQuickViewPage extends BasePage {    // TODO
 
     public ProductQuickViewPage(WebDriver driver, WebElement element) {
         super(driver, element);
-        widgetsPage = new WidgetsPage(driver);
+        widgets = new WidgetsPage(driver);
     }
 
     public boolean isDiscountedBy(int value) {
@@ -54,6 +54,6 @@ public class ProductQuickViewPage extends BasePage {    // TODO
     public QuickCartSummaryPage addToCart() {
         addToCart.click();
         wait.until(ExpectedConditions.invisibilityOf(addToCart));
-        return new QuickCartSummaryPage(driver, widgetsPage.getModal());
+        return new QuickCartSummaryPage(driver, widgets.getModal());
     }
 }

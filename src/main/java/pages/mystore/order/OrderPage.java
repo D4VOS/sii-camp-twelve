@@ -13,5 +13,5 @@ public abstract class OrderPage extends MyStoreBasePage {
     public OrderPage(WebDriver driver) {
         super(driver);
     }
-    
+
 }

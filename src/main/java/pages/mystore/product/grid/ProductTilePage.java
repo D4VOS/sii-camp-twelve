@@ -18,7 +18,7 @@ import static helpers.web.WebElementHelpers.isVisible;
 
 public class ProductTilePage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(ProductTilePage.class);
-    private final WidgetsPage widgetsPage;
+    private final WidgetsPage widgets;
     @FindBy(css = ".product-title a")
     private WebElement name;
 
@@ -43,7 +43,7 @@ public class ProductTilePage extends BasePage {
 
     public ProductTilePage(WebDriver driver, WebElement element) {
         super(driver, element);
-        widgetsPage = new WidgetsPage(driver);
+        widgets = new WidgetsPage(driver);
     }
 
     public String getName() {
@@ -77,7 +77,7 @@ public class ProductTilePage extends BasePage {
         Actions actions = new Actions(driver);
         actions.moveToElement(name).perform();
         quickViewButton.click();
-        return new ProductQuickViewPage(driver, widgetsPage.getModal());
+        return new ProductQuickViewPage(driver, widgets.getModal());
     }
 
     public ProductViewPage view() {

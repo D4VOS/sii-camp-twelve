@@ -8,7 +8,7 @@ import pages.mystore.base.WidgetsPage;
 import pages.mystore.order.confirmation.OrderConfirmationPage;
 
 public class OrderPaymentPage extends OrderPage {
-    private final WidgetsPage widgetsPage;
+    private final WidgetsPage widgets;
     @FindBy(css = "#payment-option-2")
     private WebElement payByBankWireOption;
 
@@ -23,7 +23,7 @@ public class OrderPaymentPage extends OrderPage {
 
     public OrderPaymentPage(WebDriver driver) {
         super(driver);
-        widgetsPage = new WidgetsPage(driver);
+        widgets = new WidgetsPage(driver);
     }
 
     public OrderPaymentPage payByBankWire() {
@@ -47,7 +47,8 @@ public class OrderPaymentPage extends OrderPage {
 
     public String getTermsOfUse() {
         termsOfUse.click();
-        WebElement tos = widgetsPage.getModal();
+        WebElement tos = widgets.getModal();
+        waitForLoad();
         String tosText = tos.getText();
         tos.findElement(By.className("close")).click();
         return tosText;

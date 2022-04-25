@@ -19,7 +19,7 @@ import static helpers.web.WebElementHelpers.isVisible;
 public class ProductViewPage extends MyStoreBasePage implements ProductInfoQueryable {
     private static final Logger logger = LoggerFactory.getLogger(ProductViewPage.class);
 
-    private final WidgetsPage widgetsPage;
+    private final WidgetsPage widgets;
     @FindBy(css = ".current-price .discount")
     private WebElement discount;
 
@@ -48,7 +48,7 @@ public class ProductViewPage extends MyStoreBasePage implements ProductInfoQuery
 
     public ProductViewPage(WebDriver driver) {
         super(driver);
-        widgetsPage = new WidgetsPage(driver);
+        widgets = new WidgetsPage(driver);
     }
 
     public String getName() {
@@ -64,6 +64,10 @@ public class ProductViewPage extends MyStoreBasePage implements ProductInfoQuery
             return customizedLabel.getText();
         }
         return null;
+    }
+
+    public int getQuantity() {
+        return Integer.parseInt(quantityField.getAttribute("value"));
     }
 
     public boolean isDiscountedBy(int value) {
@@ -82,7 +86,7 @@ public class ProductViewPage extends MyStoreBasePage implements ProductInfoQuery
 
     public QuickCartSummaryPage addToCart() {
         addToCart.click();
-        WebElement modal = widgetsPage.getModal();
+        WebElement modal = widgets.getModal();
         return new QuickCartSummaryPage(driver, modal);
     }
 

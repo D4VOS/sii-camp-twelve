@@ -6,6 +6,9 @@ import models.shop.ShoppingCart;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pages.mystore.account.orders.AccountOrderRowPage;
+import pages.mystore.account.orders.AccountOrdersPage;
+import pages.mystore.account.orders.details.AccountOrderDetailsPage;
 import pages.mystore.home.HomePage;
 import pages.mystore.order.OrderAddressPage;
 import pages.mystore.order.OrderPaymentPage;
@@ -21,6 +24,9 @@ public class CheckoutTests extends BasketAndCheckoutActions {
     @Test
     public void checkoutProcess_shouldBeSuccessful_whenFilling() {
         // Arrange
+        String expectedPaymentMethod = "Bank transfer";
+        String expectedPaymentStatus = "Awaiting bank wire payment";
+        String expectedShippingMethod = "TesterSii";
         User user = new UserFactory().getRandomUser();
         registerUser(user);
 
@@ -30,31 +36,44 @@ public class CheckoutTests extends BasketAndCheckoutActions {
         OrderAddressPage addressPage = at(HomePage.class).inHeader()
                 .goToBasket()
                 .summary()
-                .checkout();
-
-        addressPage.fillFirstName(user.getFirstName())
-                .fillLastName(user.getLastName())
-                .fillAddress(user.getAddress().getFirstLine())
-                .fillCity(user.getAddress().getCity())
-                .selectState(user.getAddress().getState())
-                .fillZipCode(user.getAddress().getZipPostalCode())
-                .selectCountry(user.getAddress().getCountry());
+                .checkout()
+                .fillAddress(user);
 
         OrderShippingPage shippingPage = addressPage.goToShipping();
-
         shippingPage.shippingMethods()
-                .selectByName("TesterSii");
+                .selectByName(expectedShippingMethod);
 
         OrderPaymentPage paymentPage = shippingPage.goToPayment()
                 .payByBankWire()
                 .acceptTOS();
-
         String tosText = paymentPage.getTermsOfUse();
         assertThat(tosText).isNotBlank();
 
         OrderConfirmationPage confirmationPage = paymentPage.placeOrder();
+        assertThat(shoppingCart.isEquivalent(confirmationPage.products().getAll())).isTrue();
+        assertThat(confirmationPage.details().getPaymentMethod()).isEqualTo(expectedPaymentMethod);
+        assertThat(confirmationPage.details().getShippingMethod()).isEqualTo(expectedShippingMethod);
+        String orderId = confirmationPage.details()
+                .getOrderReference();
 
-        // Assert
-        return;
+        AccountOrdersPage accountOrders = at(OrderConfirmationPage.class).inHeader()
+                .goToAccount()
+                .goToOrders();
+        AccountOrderRowPage order = accountOrders.getByOrderId(orderId);
+        assertThat(order.getDate()).isEqualTo(getCurrentDate("MM/dd/yyyy"));
+        assertThat(order.getTotalPrice()).isEqualTo(shoppingCart.getTotalPrice());
+        assertThat(order.getPaymentMethod()).isEqualTo(expectedPaymentMethod);
+        assertThat(order.getPaymentStatus()).isEqualTo(expectedPaymentStatus);
+
+        AccountOrderDetailsPage orderDetails = order.goToDetails();
+        assertThat(shoppingCart.isEquivalent(orderDetails.products().getAll())).isTrue();
+        String[] expectedAddressRows = {
+                user.getFirstName() + " " + user.getLastName(),
+                user.getAddress().getFirstLine(),
+                user.getAddress().getZipPostalCode() + " " + user.getAddress().getCity(),
+                user.getAddress().getCountry()
+        };
+        assertThat(orderDetails.getDeliveryAddressRows()).containsExactly(expectedAddressRows);
+        assertThat(orderDetails.getInvoiceAddressRows()).containsExactly(expectedAddressRows);
     }
 }

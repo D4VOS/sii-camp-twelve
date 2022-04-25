@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.BasePage;
+import pages.mystore.account.AccountPage;
 import pages.mystore.auth.LoginPage;
 import pages.mystore.base.WidgetsPage;
 import pages.mystore.basket.BasketPage;
@@ -23,12 +24,16 @@ import java.util.stream.Collectors;
 
 public class HeaderPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(HeaderPage.class);
-    private final WidgetsPage widgetsPage;
+    private final WidgetsPage widgets;
 
     private static List<MenuOption> menu = new ArrayList<>();
 
     @FindBy(css = ".user-info a")
     private WebElement loginButton;
+
+    @FindBy(css = ".account")
+    private WebElement account;
+
     @FindBy(css = "#search_widget .ui-autocomplete-input")
     private WebElement searchInput;
 
@@ -38,14 +43,13 @@ public class HeaderPage extends BasePage {
     @FindBy(css = "#top-menu")
     private WebElement mainMenu;
 
-
     @FindBy(css = ".cart-preview .header")
     private WebElement cartPreviewButton;
 
     public HeaderPage(WebDriver driver, WebElement element) {
         super(driver, element);
         initMenuStructure();
-        widgetsPage = new WidgetsPage(driver);
+        widgets = new WidgetsPage(driver);
     }
 
     public List<MenuOption> getCategories() {
@@ -102,8 +106,8 @@ public class HeaderPage extends BasePage {
     }
 
     public List<String> getSearchHintTexts() {
-        wait.until(ExpectedConditions.visibilityOf(widgetsPage.getSearchDropdown()));
-        return widgetsPage.getSearchHints().stream()
+        wait.until(ExpectedConditions.visibilityOf(widgets.getSearchDropdown()));
+        return widgets.getSearchHints().stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
     }
@@ -172,5 +176,10 @@ public class HeaderPage extends BasePage {
     public LoginPage goToLogin() {
         loginButton.click();
         return new LoginPage(driver);
+    }
+
+    public AccountPage goToAccount() {
+        account.click();
+        return new AccountPage(driver);
     }
 }
