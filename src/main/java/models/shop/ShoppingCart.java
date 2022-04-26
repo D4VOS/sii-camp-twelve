@@ -33,7 +33,6 @@ public class ShoppingCart extends HashMap<CartItem, Integer> {
     public void update(CartItem key, int newAmount) {
         if (!containsKey(key)) {
             throw new NotFoundItemInCartException("Item " + key + " is not present in shop cart.");
-
         }
         put(key, newAmount);
     }

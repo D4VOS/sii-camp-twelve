@@ -1,8 +1,12 @@
 package helpers.data;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Field;
 
 public class ObjectFormatter {
+    private static final Logger logger = LoggerFactory.getLogger(ObjectFormatter.class);
     static final StringBuilder builder = new StringBuilder();
 
     // deep search for property.key=value form of every nested field in object
@@ -34,7 +38,7 @@ public class ObjectFormatter {
 
                 field.setAccessible(false);
             } catch (IllegalAccessException ex) {
-                System.out.println(ex);
+                logger.warn(String.valueOf(ex));
             }
         }
         return builder.toString();
