@@ -52,7 +52,7 @@ public class ShoppingCart extends HashMap<CartItem, Integer> {
 
     @Override
     public String toString() {
-        return "Different products: " + size() +
+        return "Unique products: " + size() +
                 "\nTotal price: " + getTotalPrice() +
                 "\nTotal amount: " + getTotalAmount() +
                 "\nItems:\n" +

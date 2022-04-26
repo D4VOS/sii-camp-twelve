@@ -4,7 +4,6 @@ import models.shop.CartItem;
 import models.shop.ShoppingCart;
 import pages.mystore.home.HomePage;
 import pages.mystore.product.ProductViewPage;
-import pages.mystore.search.SearchResultsPage;
 
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -32,16 +31,6 @@ public class ShoppingCartActions extends MyStoreActions {
                     .continueShopping();
         });
 
-        at(HomePage.class).inHeader()
-                .typeInSearchBar("CUSTOMIZED").submitSearch();
-
-        ProductViewPage productViewPage = at(SearchResultsPage.class).products().getRandom().view();
-
-
-        productViewPage = productViewPage.customizeIfPossible().setAmount(1);
-        shoppingCart.add(new CartItem(productViewPage), 1);
-        
-        productViewPage.addToCart().continueShopping();
         return shoppingCart;
     }
 }

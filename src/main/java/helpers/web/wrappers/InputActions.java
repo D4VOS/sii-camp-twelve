@@ -8,7 +8,7 @@ public class InputActions {
     private static final Logger logger = LoggerFactory.getLogger(InputActions.class);
 
     public static void performSendKeys(WebElement field, String text) {
-        logger.info(" <<<<< Entering: '" + text + "' into the field at: " + field.getLocation());
+        logger.info("<<<<< Entering: '" + text + "' into the field at: " + field.getLocation());
         field.clear();
         field.sendKeys(text);
     }
