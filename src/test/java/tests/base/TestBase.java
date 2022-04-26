@@ -18,7 +18,7 @@ import java.util.Date;
 
 @Execution(ExecutionMode.CONCURRENT)
 public abstract class TestBase {
-    private static final Logger logger = LoggerFactory.getLogger(TestBase.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(TestBase.class);
     static BrowserEnvironment browserEnvironment;
     static EnvironmentProperty environmentProperty;
     protected WebDriver driver;

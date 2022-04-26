@@ -1,19 +1,25 @@
 package pages.mystore.basket;
 
+import models.shop.CartItem;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pages.BasePage;
+import pages.mystore.base.WidgetsPage;
 
 import java.util.stream.IntStream;
 
 import static helpers.data.DataUtils.parsePrice;
 import static helpers.web.WebElementHelpers.isVisible;
+import static pages.mystore.base.MyStoreBasePage.shoppingCart;
 
 public class CartItemPage extends BasePage implements ProductInfoQueryable {
 
+    private static final Logger logger = LoggerFactory.getLogger(CartItemPage.class);
+    private final WidgetsPage widgets;
     @FindBy(css = ".js-cart-line-product-quantity")
     private WebElement quantity;
 
@@ -44,6 +50,7 @@ public class CartItemPage extends BasePage implements ProductInfoQueryable {
 
     public CartItemPage(WebDriver driver, WebElement element) {
         super(driver, element);
+        widgets = new WidgetsPage(driver);
     }
 
     public String getName() {
@@ -64,41 +71,47 @@ public class CartItemPage extends BasePage implements ProductInfoQueryable {
 
     public String getCustomizedText() {
         if (isVisible(customizationShowModalButton)) {
-            return customizationText.getText();
+            customizationShowModalButton.click();
+            wait.until(driver -> !customizationText.getText().isEmpty());
+            String text = customizationText.getText();
+            widgets.closeModal();
+            return text;
         }
         return null;
     }
 
     public CartItemPage setQuantity(int amount) {
-        Actions action = new Actions(driver);
-        action.moveToElement(quantity)
-                .click(quantity)
-                .sendKeys(Keys.chord(Keys.CONTROL, "a"))
-                .sendKeys(Keys.BACK_SPACE)
-                .sendKeys(String.valueOf(amount))
-                .perform();
-        totalPrice.click();
+        CartItem itemToUpdate = new CartItem(this);
+        logger.info("Updating " + itemToUpdate + " amount: " + getQuantity() + "->" + amount);
+        shoppingCart.update(itemToUpdate, amount);
+        quantity.click();
+        quantity.sendKeys(Keys.chord(Keys.CONTROL, "a"));   // Actions was flaky :/
+        quantity.sendKeys(String.valueOf(amount), Keys.RETURN);
         waitForLoad();
         return this;
     }
 
-    public CartItemPage increaseQuantity(int times) {
-        changeQuantity(quantitySingleAdd, times);
-        return this;
-    }
-
-    public CartItemPage decreaseQuantity(int times) {
-        changeQuantity(quantitySingleRemove, times);
-        return this;
-    }
-
-    private void changeQuantity(WebElement clickTarget, int times) {
-        IntStream.range(0, times).forEach(i -> clickTarget.click());
+    public CartItemPage changeQuantity(int times) {
+        WebElement clickTarget;
+        CartItem item = new CartItem(this);
+        logger.info("Changing quantity by arrows. Times: " + times + ". Item: " + item);
+        if (times > 0) {
+            clickTarget = quantitySingleAdd;
+            shoppingCart.add(new CartItem(this), Math.abs(times));
+        } else {
+            clickTarget = quantitySingleRemove;
+            shoppingCart.remove(new CartItem(this), Math.abs(times));
+        }
+        IntStream.range(0, Math.abs(times)).forEach(i -> clickTarget.click());
         totalPrice.click();
         waitForLoad();
+        return this;
     }
 
     public void remove() {
+        CartItem item = new CartItem(this);
+        logger.info("Removing item: " + item);
+        shoppingCart.remove(item);
         removeItem.click();
         waitForLoad();
     }

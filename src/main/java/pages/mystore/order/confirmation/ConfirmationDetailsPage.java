@@ -21,14 +21,21 @@ public class ConfirmationDetailsPage extends BasePage {
     }
 
     public String getOrderReference() {
+        waitForTextLoad(orderReference);
         return orderReference.getText().replaceAll(".*: ", "");
     }
 
     public String getPaymentMethod() {
+        waitForTextLoad(paymentMethod);
         return paymentMethod.getText().replaceAll(".*: ", "");
     }
 
     public String getShippingMethod() {
+        waitForTextLoad(shippingMethod);
         return getSingleNodeText(shippingMethod).replaceAll(".*: ", "");
+    }
+
+    private void waitForTextLoad(WebElement element) {
+        wait.until(driver -> !element.getText().isEmpty());
     }
 }

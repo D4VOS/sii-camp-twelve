@@ -36,13 +36,15 @@ public class CategoriesTests extends Pages {
                 .inHeader()
                 .selectCategory(category.getTitle());
 
-        String title = at(CategoryPage.class).getTitle();
-        int productCount = at(CategoryPage.class).products().getAll().size();
-        String productCountLabel = at(CategoryPage.class).products().getCountLabel();
+        CategoryPage categoryPage = at(CategoryPage.class);
+        String title = categoryPage.getTitle();
+        int productCount = categoryPage.products().getAll().size();
+        String productCountLabel = categoryPage.products().getCountLabel();
 
         // Assert
         logger.info("Title: " + title + ", product count: " + productCount + ", product count label: " + productCountLabel);
-        assertThat(title).containsIgnoringCase(category.getTitle());
+        assertThat(title).isEqualTo(category.getTitle());
         assertThat(productCountLabel).contains("of " + productCount + " item(s)");
+        assertThat(categoryPage.filtersVisibility()).isTrue();
     }
 }

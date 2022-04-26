@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import pages.mystore.base.MyStoreBasePage;
 import pages.mystore.home.HomePage;
 
+import static helpers.web.wrappers.InputActions.performSendKeys;
+
 public class LoginPage extends MyStoreBasePage {
 
     @FindBy(css = "[name=email]")
@@ -31,14 +33,12 @@ public class LoginPage extends MyStoreBasePage {
     }
 
     public LoginPage fillEmail(String email) {
-        this.email.clear();
-        this.email.sendKeys(email);
+        performSendKeys(this.email, email);
         return this;
     }
 
     public LoginPage fillPassword(String password) {
-        this.password.clear();
-        this.password.sendKeys(password);
+        performSendKeys(this.password, password);
         return this;
     }
 

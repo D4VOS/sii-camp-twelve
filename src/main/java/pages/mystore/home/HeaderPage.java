@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import static helpers.web.wrappers.InputActions.performSendKeys;
+
 public class HeaderPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(HeaderPage.class);
     private final WidgetsPage widgets;
@@ -96,8 +98,7 @@ public class HeaderPage extends BasePage {
     }
 
     public HeaderPage typeInSearchBar(String text) {
-        searchInput.clear();
-        searchInput.sendKeys(text);
+        performSendKeys(searchInput, text);
         return this;
     }
 

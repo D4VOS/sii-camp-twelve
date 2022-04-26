@@ -31,7 +31,7 @@ public class CategoryPage extends MyStoreBasePage {
         return categoryTitle.getText();
     }
 
-    public boolean isFiltersVisible() {
+    public boolean filtersVisibility() {
         return isVisible(filtersMenu);
     }
 

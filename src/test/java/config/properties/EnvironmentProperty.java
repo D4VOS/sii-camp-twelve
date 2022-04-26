@@ -15,7 +15,7 @@ import static helpers.data.ObjectFormatter.flattenObject;
 
 
 public class EnvironmentProperty {
-    private static final Logger logger = LoggerFactory.getLogger(EnvironmentProperty.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(EnvironmentProperty.class);
     private static final String configFileName = "config";
     private static EnvironmentProperty instance = null;
     private final String appEnvName;

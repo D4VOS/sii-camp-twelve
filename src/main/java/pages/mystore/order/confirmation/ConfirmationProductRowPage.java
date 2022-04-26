@@ -15,7 +15,7 @@ public class ConfirmationProductRowPage extends BasePage implements ProductInfoQ
 
     private WidgetsPage widgets;
 
-    @FindBy(css = ".details")
+    @FindBy(css = ".details span")
     private WebElement details;
 
     @FindBy(css = ".qty .row div:nth-child(1)")
@@ -56,7 +56,11 @@ public class ConfirmationProductRowPage extends BasePage implements ProductInfoQ
     public String getCustomizedText() {
         if (isVisible(customizationLabel)) {
             customizationLabel.click();
-            return widgets.getModal().findElement(By.className("value")).getText();
+            WebElement textField = widgets.getModal().findElement(By.className("value"));
+            wait.until(driver -> !textField.getText().isEmpty());
+            String text = textField.getText();
+            widgets.closeModal();
+            return text;
         }
         return null;
     }

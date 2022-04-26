@@ -10,7 +10,6 @@ import org.openqa.selenium.interactions.Actions;
 import java.util.List;
 
 public class WebElementHelpers {
-
     public static void selectMultipleOptionsAtOnceByText(WebDriver driver, List<WebElement> options, List<String> optionToSelect) {
         Actions multipleSelect = new Actions(driver);
 

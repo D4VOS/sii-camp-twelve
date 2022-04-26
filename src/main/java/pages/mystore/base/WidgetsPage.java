@@ -8,9 +8,15 @@ import pages.BasePage;
 
 import java.util.List;
 
+import static helpers.web.WebElementHelpers.isVisible;
+
+// Those widgets can be handled by WebDriver::switchTo but for modularity and code clarity aspect chosen PO
 public class WidgetsPage extends BasePage {
-    @FindBy(css = "#blockcart-modal,#modal")
+    @FindBy(css = ".modal.in")
     private WebElement modal;
+
+    @FindBy(css = ".modal-header .close")
+    private WebElement modalCloseButton;
 
     @FindBy(css = ".ui-widget")
     private WebElement searchDropdown;
@@ -26,6 +32,10 @@ public class WidgetsPage extends BasePage {
         return getVisible(modal);
     }
 
+    public void closeModal() {
+        modalCloseButton.click();
+    }
+
     public WebElement getSearchDropdown() {
         return getVisible(searchDropdown);
     }
@@ -35,7 +45,7 @@ public class WidgetsPage extends BasePage {
     }
 
     private WebElement getVisible(WebElement element) {
-        wait.until(ExpectedConditions.visibilityOf(element));
+        wait.until(driver -> isVisible(element));
         return element;
     }
 

@@ -48,7 +48,6 @@ public class OrderPaymentPage extends OrderPage {
     public String getTermsOfUse() {
         termsOfUse.click();
         WebElement tos = widgets.getModal();
-        waitForLoad();
         String tosText = tos.getText();
         tos.findElement(By.className("close")).click();
         return tosText;

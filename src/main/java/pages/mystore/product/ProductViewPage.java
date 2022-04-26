@@ -2,6 +2,7 @@ package pages.mystore.product;
 
 import factory.user.UserFactory;
 import models.entities.User;
+import models.shop.CartItem;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,6 +16,7 @@ import java.util.Objects;
 
 import static helpers.data.DataUtils.parsePrice;
 import static helpers.web.WebElementHelpers.isVisible;
+import static helpers.web.wrappers.InputActions.performSendKeys;
 
 public class ProductViewPage extends MyStoreBasePage implements ProductInfoQueryable {
     private static final Logger logger = LoggerFactory.getLogger(ProductViewPage.class);
@@ -79,21 +81,23 @@ public class ProductViewPage extends MyStoreBasePage implements ProductInfoQuery
     }
 
     public ProductViewPage setAmount(int amount) {
-        quantityField.clear();
-        quantityField.sendKeys(String.valueOf(amount));
+        performSendKeys(quantityField, String.valueOf(amount));
         return this;
     }
 
     public QuickCartSummaryPage addToCart() {
         addToCart.click();
+        CartItem item = new CartItem(this);
+        logger.info("Added: " + getQuantity() + "x " + item);
+        shoppingCart.add(item, getQuantity());
         WebElement modal = widgets.getModal();
         return new QuickCartSummaryPage(driver, modal);
     }
 
     public ProductViewPage customizeItem(String text) {
-        customizationField.click();
-        customizationField.sendKeys(text);
+        performSendKeys(customizationField, text);
         saveCustomizationButton.click();
+        logger.info("Customized with text: " + text);
         return this;
     }
 

@@ -1,5 +1,6 @@
 package pages.mystore.base;
 
+import models.shop.ShoppingCart;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,6 +10,7 @@ import pages.mystore.home.HeaderPage;
 
 public abstract class MyStoreBasePage extends BasePage {
 
+    public static ShoppingCart shoppingCart = new ShoppingCart();
     @FindBy(css = "#header")
     private WebElement header;
 
@@ -18,7 +20,6 @@ public abstract class MyStoreBasePage extends BasePage {
     public MyStoreBasePage(WebDriver driver) {
         super(driver);
     }
-
 
     public FooterPage inFooter() {
         return new FooterPage(driver, footer);

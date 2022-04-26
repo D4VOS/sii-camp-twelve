@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.mystore.home.HomePage;
-import pages.mystore.search.SearchResultsPagePage;
+import pages.mystore.search.SearchResultsPage;
 import tests.base.Pages;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class SearchTests extends Pages {
                 .typeInSearchBar(itemName)
                 .submitSearch();
 
-        List<String> sut = at(SearchResultsPagePage.class)
+        List<String> sut = at(SearchResultsPage.class)
                 .products()
                 .getNames();
 
@@ -48,7 +48,7 @@ public class SearchTests extends Pages {
         at(HomePage.class).inHeader()
                 .typeInSearchBar(itemName);
 
-        List<String> sut = at(SearchResultsPagePage.class)
+        List<String> sut = at(SearchResultsPage.class)
                 .inHeader()
                 .getSearchHintTexts();
 

@@ -16,12 +16,15 @@ public class CartItem {
 
     @Override
     public String toString() {
-        return name + " ($" + price + ")";
+        return name + " ($" + price + ")" + (customizeText != null ? " customized: " + customizeText : "");
     }
 
     public CartItem(ProductInfoQueryable productInfo) {
         name = productInfo.getName();
         price = productInfo.getPrice();
         customizeText = productInfo.getCustomizedText();
+        if (customizeText == null) {
+            return;
+        }
     }
 }

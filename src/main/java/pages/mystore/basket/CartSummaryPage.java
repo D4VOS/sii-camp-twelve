@@ -10,9 +10,6 @@ import static helpers.data.DataUtils.parsePrice;
 
 public class CartSummaryPage extends BasePage {
 
-    @FindBy(css = ".cart-total .value")
-    private WebElement totalOrderPrice;
-
     @FindBy(css = "#cart-subtotal-products .value")
     private WebElement totalItemPrice;
 
@@ -26,16 +23,8 @@ public class CartSummaryPage extends BasePage {
         super(driver, element);
     }
 
-    public float getTotalOrderPrice() {
-        return parsePrice(totalOrderPrice.getText());
-    }
-
     public float getTotalItemPrice() {
         return parsePrice(totalItemPrice.getText());
-    }
-
-    public float getShippingPrice() {
-        return parsePrice(shippingPrice.getText());
     }
 
     public OrderAddressPage checkout() {

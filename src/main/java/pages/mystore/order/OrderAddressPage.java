@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.mystore.order.shipping.OrderShippingPage;
 
+import static helpers.web.wrappers.InputActions.performSendKeys;
+
 public class OrderAddressPage extends OrderPage {
 
     @FindBy(css = "[name=firstname]")
@@ -36,12 +38,6 @@ public class OrderAddressPage extends OrderPage {
     @FindBy(css = "[name=id_country]")
     private WebElement countrySelectField;
 
-    @FindBy(css = "[name=phone]")
-    private WebElement phoneField;
-
-    @FindBy(css = "#use_same_address")
-    private WebElement useThisAddressForInvoiceCheckbox;
-
     @FindBy(css = "[name=confirm-addresses]")
     private WebElement continueButton;
 
@@ -50,38 +46,22 @@ public class OrderAddressPage extends OrderPage {
     }
 
     public OrderAddressPage fillFirstName(String firstName) {
-        firstNameField.clear();
-        firstNameField.sendKeys(firstName);
+        performSendKeys(firstNameField, firstName);
         return this;
     }
 
     public OrderAddressPage fillLastName(String lastName) {
-        lastNameField.clear();
-        lastNameField.sendKeys(lastName);
-        return this;
-    }
-
-    public OrderAddressPage fillCompany(String company) {
-        companyNameField.clear();
-        companyNameField.sendKeys(company);
+        performSendKeys(lastNameField, lastName);
         return this;
     }
 
     public OrderAddressPage fillAddress(String address) {
-        addressField.clear();
-        addressField.sendKeys(address);
-        return this;
-    }
-
-    public OrderAddressPage fillAddressComplement(String addressComplement) {
-        addressComplementField.clear();
-        addressComplementField.sendKeys(addressComplement);
+        performSendKeys(addressField, address);
         return this;
     }
 
     public OrderAddressPage fillCity(String city) {
-        cityField.clear();
-        cityField.sendKeys(city);
+        performSendKeys(cityField, city);
         return this;
     }
 
@@ -92,8 +72,7 @@ public class OrderAddressPage extends OrderPage {
     }
 
     public OrderAddressPage fillZipCode(String zipCode) {
-        zipPostalCodeField.clear();
-        zipPostalCodeField.sendKeys(zipCode);
+        performSendKeys(zipPostalCodeField, zipCode);
         return this;
     }
 

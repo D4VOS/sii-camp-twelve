@@ -10,6 +10,7 @@ import pages.mystore.home.HomePage;
 import java.util.List;
 
 import static helpers.web.WebElementHelpers.getOptionByText;
+import static helpers.web.wrappers.InputActions.performSendKeys;
 
 public class RegisterPage extends MyStoreBasePage {
 
@@ -50,32 +51,27 @@ public class RegisterPage extends MyStoreBasePage {
     }
 
     public RegisterPage fillFirstName(String firstName) {
-        this.firstName.clear();
-        this.firstName.sendKeys(firstName);
+        performSendKeys(this.firstName, firstName);
         return this;
     }
 
     public RegisterPage fillLastName(String lastName) {
-        this.lastName.clear();
-        this.lastName.sendKeys(lastName);
+        performSendKeys(this.lastName, lastName);
         return this;
     }
 
     public RegisterPage fillEmail(String email) {
-        this.email.clear();
-        this.email.sendKeys(email);
+        performSendKeys(this.email, email);
         return this;
     }
 
     public RegisterPage fillPassword(String password) {
-        this.password.clear();
-        this.password.sendKeys(password);
+        performSendKeys(this.password, password);
         return this;
     }
 
     public RegisterPage fillBirthDate(String birthDate) {
-        this.birthDate.clear();
-        this.birthDate.sendKeys(birthDate);
+        performSendKeys(this.birthDate, birthDate);
         return this;
     }
 

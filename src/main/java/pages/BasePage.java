@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class BasePage {
     protected static final int TIMEOUT_S = Integer.parseInt(System.getProperty("webElement.timeOut"));
     protected static final int SLEEP_MS = Integer.parseInt(System.getProperty("webElement.polling"));
-    private static final Logger logger = LoggerFactory.getLogger(BasePage.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(BasePage.class);
 
     protected WebDriver driver;
     protected WebDriverWait wait;
@@ -38,11 +38,11 @@ public abstract class BasePage {
         logger.debug("Created WebDriverWait with timeout: " + TIMEOUT_S + "s and sleep: " + SLEEP_MS + "ms");
     }
 
-    public void highLight(WebElement element, String color) {
+    protected void highLight(WebElement element, String color) {
         jse.executeScript("arguments[0].style.border='3px solid " + color + '\'', element);
     }
 
-    public void highLight(WebElement element) {
+    protected void highLight(WebElement element) {
         highLight(element, "red");
     }
 
@@ -53,50 +53,22 @@ public abstract class BasePage {
         return new Dimension(width, height);
     }
 
-
     public boolean isPageLoaded() {
         return isDOMLoaded() && isAjaxCompletedTasks();
     }
 
     public boolean isDOMLoaded() {
         String state = jse.executeScript("return document.readyState").toString();
-        logger.debug("DOM: " + state + "\n");
         return state.equals("complete");
     }
 
     public boolean isAjaxCompletedTasks() {
         String state = jse.executeScript("return jQuery.active").toString();
-        logger.debug("AJAX: " + state + "\n");
         return state.equals("0");
     }
 
     public void waitForLoad() {
         wait.until(driver -> isPageLoaded());
-    }
-
-    protected WebElement getParentUntilHaveClass(WebElement element, String className) {
-        int depthLimit = 3;
-        WebElement current = element;
-        if (current == null) {
-            logger.info("Element should exist.");
-            return null;
-        }
-        for (int i = 0; i < depthLimit; i++) {
-            current = getParent(current);
-            if (current == null) {
-                logger.info("Not found parent with class " + className);
-                return null;
-            }
-            if (current.getAttribute("class").contains(className)) {
-                return current;
-            }
-        }
-        logger.info("Not found parent with class " + className);
-        return null;
-    }
-
-    protected WebElement getParent(WebElement child) {
-        return child.findElement(By.xpath("./.."));
     }
 
     public void hoverOnElement(WebElement element) {

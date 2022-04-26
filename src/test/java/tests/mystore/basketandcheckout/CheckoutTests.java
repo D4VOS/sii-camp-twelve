@@ -2,7 +2,6 @@ package tests.mystore.basketandcheckout;
 
 import factory.user.UserFactory;
 import models.entities.User;
-import models.shop.ShoppingCart;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +18,7 @@ import tests.actions.mystore.ShoppingCartActions;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static pages.mystore.base.MyStoreBasePage.shoppingCart;
 
 public class CheckoutTests extends ShoppingCartActions {
     private static final Logger logger = LoggerFactory.getLogger(CheckoutTests.class);
@@ -35,7 +35,7 @@ public class CheckoutTests extends ShoppingCartActions {
                 .goToRegister()
                 .registerUser(user);
 
-        ShoppingCart shoppingCart = createShoppingCart(5, 3);
+        shoppingCart = createShoppingCart(5, 3);
 
         // Act
         OrderAddressPage addressPage = at(HomePage.class).inHeader()
@@ -58,6 +58,7 @@ public class CheckoutTests extends ShoppingCartActions {
         assertThat(shoppingCart.isEquivalent(confirmationPage.products().getAll())).isTrue();
         assertThat(confirmationPage.details().getPaymentMethod()).isEqualTo(expectedPaymentMethod);
         assertThat(confirmationPage.details().getShippingMethod()).isEqualTo(expectedShippingMethod);
+        
         String orderId = confirmationPage.details()
                 .getOrderReference();
         logger.info("Order reference: " + orderId);

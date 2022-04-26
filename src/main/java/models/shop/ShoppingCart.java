@@ -1,6 +1,8 @@
 package models.shop;
 
 import exceptions.NotFoundItemInCartException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pages.mystore.basket.ProductInfoQueryable;
 
 import java.util.HashMap;
@@ -10,6 +12,7 @@ import java.util.stream.Collectors;
 import static helpers.data.DataUtils.round;
 
 public class ShoppingCart extends HashMap<CartItem, Integer> {
+    private static final Logger logger = LoggerFactory.getLogger(ShoppingCart.class);
 
     public void add(CartItem toAdd, int amount) {
         put(toAdd, getOrDefault(toAdd, 0) + amount);
@@ -27,14 +30,13 @@ public class ShoppingCart extends HashMap<CartItem, Integer> {
         put(key, currentAmount - amount);
     }
 
-    public void update(CartItem key, int amount) {
+    public void update(CartItem key, int newAmount) {
         if (!containsKey(key)) {
             throw new NotFoundItemInCartException("Item " + key + " is not present in shop cart.");
 
         }
-        put(key, amount);
+        put(key, newAmount);
     }
-
 
     public float getTotalPrice() {
         return round((float) entrySet().stream()
@@ -60,9 +62,21 @@ public class ShoppingCart extends HashMap<CartItem, Integer> {
     }
 
     public boolean isEquivalent(List<? extends ProductInfoQueryable> products) {
+        logger.info("Current shopping cart state:\n" + this);
         return products.stream().allMatch(p -> {
             CartItem item = new CartItem(p);
-            return containsKey(item) && p.getQuantity() == get(item);
+            try {
+                int itemQuantity = p.getQuantity();
+                logger.info(itemQuantity + "x Item: " + item);
+
+                boolean contains = containsKey(item);
+                int cartQuantity = get(item);
+                logger.info("\tisInCart: " + contains + "\tcartQuantity: " + cartQuantity);
+                return contains && itemQuantity == cartQuantity;
+            } catch (NullPointerException e) {
+                logger.warn("Item " + item + " is not present in shopping cart.");
+                return false;
+            }
         });
     }
 }

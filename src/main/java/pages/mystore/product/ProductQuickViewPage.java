@@ -12,6 +12,7 @@ import pages.mystore.base.WidgetsPage;
 import java.util.Objects;
 
 import static helpers.web.WebElementHelpers.isVisible;
+import static helpers.web.wrappers.InputActions.performSendKeys;
 
 public class ProductQuickViewPage extends BasePage {    // TODO
 
@@ -19,12 +20,6 @@ public class ProductQuickViewPage extends BasePage {    // TODO
     private final WidgetsPage widgets;
     @FindBy(css = ".discount")
     private WebElement discount;
-
-    @FindBy(css = ".regular-price")
-    private WebElement regularPrice;
-
-    @FindBy(css = ".price")
-    private WebElement currentPrice;
 
     @FindBy(css = "#quantity_wanted")
     private WebElement quantityField;
@@ -46,8 +41,7 @@ public class ProductQuickViewPage extends BasePage {    // TODO
     }
 
     public ProductQuickViewPage setAmount(int amount) {
-        quantityField.clear();
-        quantityField.sendKeys(String.valueOf(amount));
+        performSendKeys(quantityField, String.valueOf(amount));
         return this;
     }
 
