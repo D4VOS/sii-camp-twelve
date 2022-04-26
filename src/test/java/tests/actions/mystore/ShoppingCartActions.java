@@ -12,7 +12,7 @@ public class ShoppingCartActions extends MyStoreActions {
     public ShoppingCart createShoppingCart(int itemCount, int maxAtOnce) {
         ShoppingCart shoppingCart = new ShoppingCart();
 
-        IntStream.range(0, 1).forEach(n -> {
+        IntStream.range(0, itemCount).forEach(n -> {
             // Arrange
             int amount = new Random().nextInt(maxAtOnce) + 1;
             // Act
