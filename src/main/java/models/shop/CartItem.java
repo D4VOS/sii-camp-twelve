@@ -23,8 +23,5 @@ public class CartItem {
         name = productInfo.getName();
         price = productInfo.getPrice();
         customizeText = productInfo.getCustomizedText();
-        if (customizeText == null) {
-            return;
-        }
     }
 }
