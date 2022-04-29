@@ -64,13 +64,13 @@ public class HeaderPage extends BasePage {
 
     private void initMenuStructure() {
         if (menu != null) {
-            parseToMenuOption(mainMenu, null);
+            createMenuLevelOptions(mainMenu, null);
         }
     }
 
-    private void parseToMenuOption(WebElement menuLevel, MenuOption parent) {
-        int depth = Integer.parseInt(menuLevel.getAttribute("data-depth"));
-        List<WebElement> menuOptions = menuLevel.findElements(By.xpath("./*[@class='category']"));
+    private void createMenuLevelOptions(WebElement menuLevel, MenuOption parent) {
+        int depth = getMenuDepthLevel(menuLevel);
+        List<WebElement> menuOptions = getLevelOptions(menuLevel);
 
         menuOptions.forEach(option -> {
             String id = option.getAttribute("id");
@@ -82,10 +82,18 @@ public class HeaderPage extends BasePage {
                 WebElement lowerMenu = getLowerMenu(option);
                 if (lowerMenu != null) {
                     hoverOnElement(option);
-                    parseToMenuOption(lowerMenu, menuOption);
+                    createMenuLevelOptions(lowerMenu, menuOption);
                 }
             }
         });
+    }
+
+    private int getMenuDepthLevel(WebElement menuLevel) {
+        return Integer.parseInt(menuLevel.getAttribute("data-depth"));
+    }
+
+    private List<WebElement> getLevelOptions(WebElement menuLevel) {
+        return menuLevel.findElements(By.xpath("./*[@class='category']"));
     }
 
 
