@@ -56,7 +56,7 @@ public class BasketSteps extends BasketPage {
         assertCartTotalPrice(this);
     }
 
-    public void removeEachAndCheckTotalPrice() {
+    public void removeProductsAndCheckTotalPriceAfterEach() {
         CartItemListPage productsList = products();
         for (int i = 0; i < productsList.getAll().size(); i++) {
             productsList.getFirst().remove();

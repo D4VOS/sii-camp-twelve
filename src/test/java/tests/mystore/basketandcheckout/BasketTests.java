@@ -25,11 +25,10 @@ public class BasketTests extends ShoppingCartActions {
                 .checkIfBasketContainsCorrectProducts()
                 .checkIfTotalPriceIsCorrect()
                 .setFirstItemQuantityTo(5)
-                .checkIfTotalPriceIsCorrect()
                 .checkIfTotalPriceIsCorrect();
 
         Arrays.stream(new int[]{2, -2}).forEach(testSteps::changeFirstItemQuantityAndCheckValue);
 
-        testSteps.removeEachAndCheckTotalPrice();
+        testSteps.removeProductsAndCheckTotalPriceAfterEach();
     }
 }
