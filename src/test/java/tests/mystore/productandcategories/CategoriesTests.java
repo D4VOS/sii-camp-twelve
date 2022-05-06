@@ -26,16 +26,14 @@ public class CategoriesTests extends Pages {
                 .inHeader()
                 .getSubCategories();
 
-        categories.forEach(category -> {
-            testSteps
-                    .goToCategory(category.getTitle())
-                    .checkIfOnCorrectPage(category.getTitle());
-        });
+        categories.forEach(category -> testSteps
+                .goToCategory(category.getTitle())
+                .checkIfOnCorrectPage(category.getTitle())
+        );
 
-        subcategories.forEach(subcategory -> {
-            testSteps
-                    .goToCategory(subcategory.getTitle())
-                    .checkIfOnCorrectPage(subcategory.getTitle());
-        });
+        subcategories.forEach(subcategory -> testSteps
+                .goToCategory(subcategory.getTitle())
+                .checkIfOnCorrectPage(subcategory.getTitle())
+        );
     }
 }
