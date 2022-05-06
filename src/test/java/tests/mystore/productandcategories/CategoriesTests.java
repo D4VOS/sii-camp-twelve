@@ -5,18 +5,18 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.mystore.home.HomePage;
-import pages.mystore.product.CategoryPage;
+import steps.CategorySteps;
 import tests.base.Pages;
 
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class CategoriesTests extends Pages {
     private static final Logger logger = LoggerFactory.getLogger(CategoriesTests.class);
 
     @Test
     public void category_shouldBeCorrectlyDisplayed_whenOpened() {
+        CategorySteps testSteps = new CategorySteps(driver);
+
         // Arrange
         List<MenuOption> categories = at(HomePage.class)
                 .inHeader()
@@ -26,25 +26,16 @@ public class CategoriesTests extends Pages {
                 .inHeader()
                 .getSubCategories();
 
-        categories.forEach(this::menuItemPageValidate);
-        subcategories.forEach(this::menuItemPageValidate);
-    }
+        categories.forEach(category -> {
+            testSteps
+                    .goToCategory(category.getTitle())
+                    .checkIfOnCorrectPage(category.getTitle());
+        });
 
-    private void menuItemPageValidate(MenuOption category) {
-        logger.info("Validating " + category.getTitle() + " page..");
-        at(HomePage.class)
-                .inHeader()
-                .selectCategory(category.getTitle());
-
-        CategoryPage categoryPage = at(CategoryPage.class);
-        String title = categoryPage.getTitle();
-        int productCount = categoryPage.products().getAll().size();
-        String productCountLabel = categoryPage.products().getCountLabel();
-
-        // Assert
-        logger.info("Title: " + title + ", product count: " + productCount + ", product count label: " + productCountLabel);
-        assertThat(title).isEqualTo(category.getTitle());
-        assertThat(productCountLabel).contains("of " + productCount + " item(s)");
-        assertThat(categoryPage.filtersVisibility()).isTrue();
+        subcategories.forEach(subcategory -> {
+            testSteps
+                    .goToCategory(subcategory.getTitle())
+                    .checkIfOnCorrectPage(subcategory.getTitle());
+        });
     }
 }
