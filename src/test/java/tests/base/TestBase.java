@@ -13,9 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 @Execution(ExecutionMode.CONCURRENT)
 public abstract class TestBase {
     private static final Logger logger = LoggerFactory.getLogger(TestBase.class);
@@ -50,7 +47,5 @@ public abstract class TestBase {
         logger.info("Driver closed properly");
     }
 
-    public String getCurrentDate(String format) {
-        return new SimpleDateFormat(format).format(new Date());
-    }
+
 }
